@@ -38,12 +38,7 @@ const client = new ApolloClient({
 });
 
 const LogIn: React.FC = () => {
-  const [loginMutation, { data, error, loading }] = useLoginMutationMutation({
-    variables: {
-      email: "test@example.org",
-      password: "password123",
-    },
-  });
+  const [loginMutation, { data, error, loading }] = useLoginMutationMutation();
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -54,7 +49,18 @@ const LogIn: React.FC = () => {
   return (
     <div>
       <p>Hello!</p>
-      <button onClick={() => loginMutation()}>Login</button>
+      <button
+        onClick={async () =>
+          await loginMutation({
+            variables: {
+              email: "test@example.org",
+              password: "password123",
+            },
+          })
+        }
+      >
+        Login
+      </button>
     </div>
   );
 };

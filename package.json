@@ -9,6 +9,7 @@
     "eject": "react-scripts eject",
     "codegen": "graphql-codegen --config codegen.yml"
   },
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -17,6 +18,7 @@
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
+    "axios": "^0.19.2",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.3",
     "react": "^16.13.1",

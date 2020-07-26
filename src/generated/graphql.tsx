@@ -28,14 +28,6 @@ export type User = {
   active: Scalars["Boolean"];
 };
 
-export type JwtToken = {
-  __typename?: "JwtToken";
-  /** JWT access token */
-  accessToken: Scalars["String"];
-  /** JWT refresh token */
-  refreshToken: Scalars["String"];
-};
-
 export type Query = {
   __typename?: "Query";
   me: User;
@@ -49,9 +41,8 @@ export type QueryUserArgs = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  login: JwtToken;
+  login: Scalars["Boolean"];
   changePassword: User;
-  refreshToken: JwtToken;
   change: User;
 };
 
@@ -64,10 +55,6 @@ export type MutationChangePasswordArgs = {
   id: Scalars["Int"];
   password: Scalars["String"];
   newPassword: Scalars["String"];
-};
-
-export type MutationRefreshTokenArgs = {
-  token: Scalars["String"];
 };
 
 export type MutationChangeArgs = {
@@ -85,16 +72,11 @@ export type LoginMutationMutationVariables = Exact<{
   password: Scalars["String"];
 }>;
 
-export type LoginMutationMutation = { __typename?: "Mutation" } & {
-  login: { __typename?: "JwtToken" } & Pick<JwtToken, "accessToken" | "refreshToken">;
-};
+export type LoginMutationMutation = { __typename?: "Mutation" } & Pick<Mutation, "login">;
 
 export const LoginMutationDocument = gql`
   mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      accessToken
-      refreshToken
-    }
+    login(email: $email, password: $password)
   }
 `;
 export type LoginMutationMutationFn = ApolloReactCommon.MutationFunction<

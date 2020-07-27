@@ -2,8 +2,8 @@ import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@ap
 import { setContext } from "@apollo/client/link/context";
 import { Container, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import { useLoginMutation } from "./generated/graphql";
 import { Copyright } from "./Copyright";
+import SignIn from "./Login";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,32 +40,6 @@ const client = new ApolloClient({
   link: authLink.concat(link),
 });
 
-const LogIn: React.FC = () => {
-  const [login, { data, loading, error }] = useLoginMutation();
-
-  if (loading) return <p>Logging in...</p>;
-  if (error) return <p>Something went wrong</p>;
-  if (data) console.log(data);
-
-  return (
-    <div>
-      <p>Hello!</p>
-      <button
-        onClick={async () => {
-          await login({
-            variables: {
-              email: "what@test.com",
-              password: "qwerty",
-            },
-          });
-        }}
-      >
-        Login
-      </button>
-    </div>
-  );
-};
-
 function App() {
   const classes = useStyles();
 
@@ -78,8 +52,8 @@ function App() {
             <Typography variant="h4" component="h1" gutterBottom>
               Hello, world!
             </Typography>
-            <LogIn />
             <Typography variant="body1">Sticky footer placeholder.</Typography>
+            <SignIn />
           </Container>
           <footer className={classes.footer}>
             <Container maxWidth="sm">

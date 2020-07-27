@@ -1,7 +1,7 @@
-import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloProvider } from "@apollo/client";
 import { Container, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
+import { apolloClient } from "./Apollo";
 import { Copyright } from "./Copyright";
 import SignIn from "./Login";
 
@@ -21,31 +21,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.type === "light" ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
-const link = createHttpLink({
-  uri: "/graphql",
-});
-
-const authLink = setContext((_, { headers }: { headers: object }) => {
-  let token;
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: authLink.concat(link),
-});
 
 function App() {
   const classes = useStyles();
 
   return (
     <React.StrictMode>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <div className={classes.root}>
           <CssBaseline />
           <Container component="main" className={classes.main} maxWidth="sm">

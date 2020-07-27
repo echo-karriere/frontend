@@ -1,6 +1,6 @@
+import gql from "graphql-tag";
 import * as ApolloReactCommon from "@apollo/client";
 import * as ApolloReactHooks from "@apollo/client";
-import gql from "graphql-tag";
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */

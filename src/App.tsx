@@ -1,16 +1,8 @@
-import { ApolloClient, ApolloProvider, createHttpLink, gql, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { Box, Container, Typography } from "@material-ui/core";
 import React from "react";
 import { useLoginMutation } from "./generated/graphql";
-
-export const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(input: { email: $email, password: $password }) {
-      token
-    }
-  }
-`;
 
 const link = createHttpLink({
   uri: "/graphql",

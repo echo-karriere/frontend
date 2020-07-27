@@ -1,9 +1,26 @@
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Container, CssBaseline, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { useLoginMutation } from "./generated/graphql";
+import { Copyright } from "./Copyright";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+  },
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    padding: theme.spacing(3, 2),
+    marginTop: "auto",
+    backgroundColor: theme.palette.type === "light" ? theme.palette.grey[200] : theme.palette.grey[800],
+  },
+}));
 const link = createHttpLink({
   uri: "/graphql",
 });
@@ -50,17 +67,27 @@ const LogIn: React.FC = () => {
 };
 
 function App() {
+  const classes = useStyles();
+
   return (
     <React.StrictMode>
       <ApolloProvider client={client}>
-        <Container maxWidth="sm">
-          <Box my={4}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Container component="main" className={classes.main} maxWidth="sm">
             <Typography variant="h4" component="h1" gutterBottom>
               Hello, world!
             </Typography>
             <LogIn />
-          </Box>
-        </Container>
+            <Typography variant="body1">Sticky footer placeholder.</Typography>
+          </Container>
+          <footer className={classes.footer}>
+            <Container maxWidth="sm">
+              <Typography variant="body1">My sticky footer can be found here.</Typography>
+              <Copyright />
+            </Container>
+          </footer>
+        </div>
       </ApolloProvider>
     </React.StrictMode>
   );

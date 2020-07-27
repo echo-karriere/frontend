@@ -1,12 +1,8 @@
+import * as ApolloReactCommon from "@apollo/client";
+import * as ApolloReactHooks from "@apollo/client";
 import gql from "graphql-tag";
-import * as ApolloReactCommon from "@apollo/react-common";
-import * as React from "react";
-import * as ApolloReactComponents from "@apollo/react-components";
-import * as ApolloReactHoc from "@apollo/react-hoc";
-import * as ApolloReactHooks from "@apollo/react-hooks";
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -134,35 +130,6 @@ export const LoginDocument = gql`
   }
 `;
 export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
-export type LoginComponentProps = Omit<
-  ApolloReactComponents.MutationComponentOptions<LoginMutation, LoginMutationVariables>,
-  "mutation"
->;
-
-export const LoginComponent = (props: LoginComponentProps) => (
-  <ApolloReactComponents.Mutation<LoginMutation, LoginMutationVariables> mutation={LoginDocument} {...props} />
-);
-
-export type LoginProps<TChildProps = {}, TDataName extends string = "mutate"> = {
-  [key in TDataName]: ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
-} &
-  TChildProps;
-export function withLogin<TProps, TChildProps = {}, TDataName extends string = "mutate">(
-  operationOptions?: ApolloReactHoc.OperationOption<
-    TProps,
-    LoginMutation,
-    LoginMutationVariables,
-    LoginProps<TChildProps, TDataName>
-  >,
-) {
-  return ApolloReactHoc.withMutation<TProps, LoginMutation, LoginMutationVariables, LoginProps<TChildProps, TDataName>>(
-    LoginDocument,
-    {
-      alias: "login",
-      ...operationOptions,
-    },
-  );
-}
 
 /**
  * __useLoginMutation__

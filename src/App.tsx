@@ -1,12 +1,7 @@
+import { ApolloClient, ApolloProvider, createHttpLink, gql, InMemoryCache } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { Box, Container, Typography } from "@material-ui/core";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
-import { setContext } from "apollo-link-context";
-import { createHttpLink } from "apollo-link-http";
-import gql from "graphql-tag";
 import React from "react";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import { useLoginMutation } from "./generated/graphql";
 
 export const LOGIN_MUTATION = gql`
@@ -66,16 +61,14 @@ function App() {
   return (
     <React.StrictMode>
       <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
-          <Container maxWidth="sm">
-            <Box my={4}>
-              <Typography variant="h4" component="h1" gutterBottom>
-                Hello, world!
-              </Typography>
-              <LogIn />
-            </Box>
-          </Container>
-        </ApolloHooksProvider>
+        <Container maxWidth="sm">
+          <Box my={4}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Hello, world!
+            </Typography>
+            <LogIn />
+          </Box>
+        </Container>
       </ApolloProvider>
     </React.StrictMode>
   );

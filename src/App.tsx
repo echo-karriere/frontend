@@ -3,12 +3,22 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { setContext } from "apollo-link-context";
 import { createHttpLink } from "apollo-link-http";
+import gql from "graphql-tag";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
+import { useLoginMutation } from "./generated/graphql";
+
+export const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(input: { email: $email, password: $password }) {
+      token
+    }
+  }
+`;
 
 const link = createHttpLink({
-  uri: "http://localhost:8080/graphql",
+  uri: "/graphql",
 });
 
 const authLink = setContext((_, { headers }: { headers: object }) => {
@@ -27,10 +37,27 @@ const client = new ApolloClient({
 });
 
 const LogIn: React.FC = () => {
+  const [login, { data, loading, error }] = useLoginMutation();
+
+  if (loading) return <p>Logging in...</p>;
+  if (error) return <p>Something went wrong</p>;
+  if (data) console.log(data);
+
   return (
     <div>
       <p>Hello!</p>
-      <button onClick={() => console.log("click")}>Login</button>
+      <button
+        onClick={async () => {
+          await login({
+            variables: {
+              email: "what@test.com",
+              password: "qwerty",
+            },
+          });
+        }}
+      >
+        Login
+      </button>
     </div>
   );
 };

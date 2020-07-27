@@ -14,139 +14,179 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A type reresentating a formatted java.time.Instant */
+  Instant: any;
+  /** A type representing a formatted java.util.UUID */
+  UUID: any;
 };
 
-export type User = {
-  __typename?: "User";
-  id: Scalars["Int"];
+export type CategoryDtoInput = {
+  description: Scalars["String"];
+  title: Scalars["String"];
+};
+
+export type CategoryEntity = {
+  __typename?: "CategoryEntity";
+  createdAt: Scalars["Instant"];
+  description: Scalars["String"];
+  id: Scalars["UUID"];
+  modifiedAt?: Maybe<Scalars["Instant"]>;
+  slug: Scalars["String"];
+  title: Scalars["String"];
+};
+
+export type LoginInput = {
   email: Scalars["String"];
   password: Scalars["String"];
-  name: Scalars["String"];
-  avatar?: Maybe<Scalars["String"]>;
-  staff: Scalars["Boolean"];
-  admin: Scalars["Boolean"];
-  active: Scalars["Boolean"];
 };
 
-export type Query = {
-  __typename?: "Query";
-  me: User;
-  user: User;
-  users: Array<User>;
-};
-
-export type QueryUserArgs = {
-  id: Scalars["Int"];
+export type LoginPayload = {
+  __typename?: "LoginPayload";
+  token: Scalars["String"];
 };
 
 export type Mutation = {
   __typename?: "Mutation";
-  login: Scalars["Boolean"];
-  changePassword: User;
-  change: User;
+  createCategory?: Maybe<CategoryEntity>;
+  deleteCategory: Scalars["Boolean"];
+  updateCategory?: Maybe<CategoryEntity>;
+  createUser?: Maybe<UserEntity>;
+  login: LoginPayload;
+  refreshToken: LoginPayload;
+};
+
+export type MutationCreateCategoryArgs = {
+  data: CategoryDtoInput;
+};
+
+export type MutationDeleteCategoryArgs = {
+  id: Scalars["UUID"];
+};
+
+export type MutationUpdateCategoryArgs = {
+  id: Scalars["UUID"];
+  data: CategoryDtoInput;
+};
+
+export type MutationCreateUserArgs = {
+  user: UserDtoInput;
 };
 
 export type MutationLoginArgs = {
+  input: LoginInput;
+};
+
+export type Query = {
+  __typename?: "Query";
+  categories: Array<CategoryEntity>;
+  categoryById?: Maybe<CategoryEntity>;
+  user?: Maybe<UserEntity>;
+  users: Array<UserEntity>;
+};
+
+export type QueryCategoryByIdArgs = {
+  id: Scalars["UUID"];
+};
+
+export type QueryUserArgs = {
+  id: Scalars["UUID"];
+};
+
+export type UserDtoInput = {
   email: Scalars["String"];
+  name: Scalars["String"];
   password: Scalars["String"];
+  type: UserType;
 };
 
-export type MutationChangePasswordArgs = {
-  id: Scalars["Int"];
+export type UserEntity = {
+  __typename?: "UserEntity";
+  active: Scalars["Boolean"];
+  createdAt: Scalars["Instant"];
+  email: Scalars["String"];
+  id: Scalars["UUID"];
+  modifiedAt?: Maybe<Scalars["Instant"]>;
+  name: Scalars["String"];
   password: Scalars["String"];
-  newPassword: Scalars["String"];
+  type: UserType;
 };
 
-export type MutationChangeArgs = {
-  id: Scalars["Int"];
-  email?: Maybe<Scalars["String"]>;
-  name?: Maybe<Scalars["String"]>;
-  avatar?: Maybe<Scalars["String"]>;
-  staff?: Maybe<Scalars["Boolean"]>;
-  admin?: Maybe<Scalars["Boolean"]>;
-  active?: Maybe<Scalars["Boolean"]>;
-};
+export enum UserType {
+  Admin = "ADMIN",
+  Staff = "STAFF",
+  User = "USER",
+}
 
-export type LoginMutationMutationVariables = Exact<{
+export type LoginMutationVariables = Exact<{
   email: Scalars["String"];
   password: Scalars["String"];
 }>;
 
-export type LoginMutationMutation = { __typename?: "Mutation" } & Pick<Mutation, "login">;
+export type LoginMutation = { __typename?: "Mutation" } & {
+  login: { __typename?: "LoginPayload" } & Pick<LoginPayload, "token">;
+};
 
-export const LoginMutationDocument = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password)
+export const LoginDocument = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(input: { email: $email, password: $password }) {
+      token
+    }
   }
 `;
-export type LoginMutationMutationFn = ApolloReactCommon.MutationFunction<
-  LoginMutationMutation,
-  LoginMutationMutationVariables
->;
-export type LoginMutationComponentProps = Omit<
-  ApolloReactComponents.MutationComponentOptions<LoginMutationMutation, LoginMutationMutationVariables>,
+export type LoginMutationFn = ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
+export type LoginComponentProps = Omit<
+  ApolloReactComponents.MutationComponentOptions<LoginMutation, LoginMutationVariables>,
   "mutation"
 >;
 
-export const LoginMutationComponent = (props: LoginMutationComponentProps) => (
-  <ApolloReactComponents.Mutation<LoginMutationMutation, LoginMutationMutationVariables>
-    mutation={LoginMutationDocument}
-    {...props}
-  />
+export const LoginComponent = (props: LoginComponentProps) => (
+  <ApolloReactComponents.Mutation<LoginMutation, LoginMutationVariables> mutation={LoginDocument} {...props} />
 );
 
-export type LoginMutationProps<TChildProps = {}, TDataName extends string = "mutate"> = {
-  [key in TDataName]: ApolloReactCommon.MutationFunction<LoginMutationMutation, LoginMutationMutationVariables>;
+export type LoginProps<TChildProps = {}, TDataName extends string = "mutate"> = {
+  [key in TDataName]: ApolloReactCommon.MutationFunction<LoginMutation, LoginMutationVariables>;
 } &
   TChildProps;
-export function withLoginMutation<TProps, TChildProps = {}, TDataName extends string = "mutate">(
+export function withLogin<TProps, TChildProps = {}, TDataName extends string = "mutate">(
   operationOptions?: ApolloReactHoc.OperationOption<
     TProps,
-    LoginMutationMutation,
-    LoginMutationMutationVariables,
-    LoginMutationProps<TChildProps, TDataName>
+    LoginMutation,
+    LoginMutationVariables,
+    LoginProps<TChildProps, TDataName>
   >,
 ) {
-  return ApolloReactHoc.withMutation<
-    TProps,
-    LoginMutationMutation,
-    LoginMutationMutationVariables,
-    LoginMutationProps<TChildProps, TDataName>
-  >(LoginMutationDocument, {
-    alias: "loginMutation",
-    ...operationOptions,
-  });
+  return ApolloReactHoc.withMutation<TProps, LoginMutation, LoginMutationVariables, LoginProps<TChildProps, TDataName>>(
+    LoginDocument,
+    {
+      alias: "login",
+      ...operationOptions,
+    },
+  );
 }
 
 /**
- * __useLoginMutationMutation__
+ * __useLoginMutation__
  *
- * To run a mutation, you first call `useLoginMutationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLoginMutationMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [loginMutationMutation, { data, loading, error }] = useLoginMutationMutation({
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
  *   variables: {
  *      email: // value for 'email'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useLoginMutationMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutationMutation, LoginMutationMutationVariables>,
+export function useLoginMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>,
 ) {
-  return ApolloReactHooks.useMutation<LoginMutationMutation, LoginMutationMutationVariables>(
-    LoginMutationDocument,
-    baseOptions,
-  );
+  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
 }
-export type LoginMutationMutationHookResult = ReturnType<typeof useLoginMutationMutation>;
-export type LoginMutationMutationResult = ApolloReactCommon.MutationResult<LoginMutationMutation>;
-export type LoginMutationMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  LoginMutationMutation,
-  LoginMutationMutationVariables
->;
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
+export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;

@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "./Auth";
 import { useLoginMutation } from "./generated/graphql";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,13 +43,14 @@ export default function SignIn() {
   const { register, handleSubmit } = useForm<LoginProps>();
   const classes = useStyles();
   const [login, { data, loading, error }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   if (loading) return <p>Logging in...</p>;
   if (error) return <p>Something went wrong</p>;
   if (data) console.log(data);
 
   const onSubmit = async (data: LoginProps) => {
-    await login({
+    const token = await login({
       variables: {
         input: {
           email: data.email,
@@ -55,6 +58,10 @@ export default function SignIn() {
         },
       },
     });
+
+    if (token.data?.login) {
+      dispatch(loginSuccess(token.data.login.token));
+    }
   };
 
   return (

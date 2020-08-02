@@ -49,8 +49,10 @@ export default function SignIn() {
   const onSubmit = async (data: LoginProps) => {
     await login({
       variables: {
-        email: data.email,
-        password: data.password,
+        input: {
+          email: data.email,
+          password: data.password,
+        },
       },
     });
   };

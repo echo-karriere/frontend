@@ -4,11 +4,15 @@ documents: "src/graphql/*.gql"
 generates:
   src/generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+      - typescript-react-apollo
     config:
       withHooks: true
       withHOC: false
       withComponent: false
       reactApolloVersion: 3
+hooks:
+  afterAllFileWrite:
+    - prettier --write

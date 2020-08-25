@@ -10,9 +10,6 @@ generates:
       - typescript-react-apollo
     config:
       withHooks: true
-      withHOC: false
-      withComponent: false
-      reactApolloVersion: 3
 hooks:
   afterAllFileWrite:
     - prettier --write

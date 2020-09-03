@@ -1,7 +1,7 @@
 <h1 align="center">echo karriere frontend</h1>
 
 <p align="center">
-   <a href="https://github.com/echo-karriere/frontend/actions"><img alt="GitHub Actions Status" src="https://github.com/echo-karriere/frontend/workflows/Pipeline/badge.svg" /></a>
+   <a href="https://github.com/echo-karriere/frontend/actions"><img alt="GitHub Actions Status" src="https://github.com/echo-karriere/frontend/workflows/pipeline/badge.svg" /></a>
    <br />
 </p>
 

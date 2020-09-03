@@ -1,46 +1,68 @@
-# frontend ![pipeline](https://github.com/echo-karriere/frontend/workflows/pipeline/badge.svg)
+<h1 align="center">echo karriere frontend</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+   <a href="https://github.com/echo-karriere/frontend/actions"><img alt="GitHub Actions Status" src="https://github.com/echo-karriere/frontend/workflows/Pipeline/badge.svg" /></a>
+   <br />
+</p>
 
-## Available Scripts
+<p align="center">
+   <strong>Management portal for echo karriere</strong>
+</p>
 
-In the project directory, you can run:
+<details>
+<summary>Table of Contents</summary>
+<br />
 
-### `yarn start`
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Table of Contents**
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [Developing](#developing)
+  - [Developing](#developing-1)
+  - [`codegen`](#codegen)
+  - [`test`](#test)
+  - [React](#react)
+- [LICENSE](#license)
 
-### `yarn test`
+<!-- markdown-toc end -->
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+</details>
 
-### `yarn build`
+## What
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is the backend that powers [echo karriere](https://www.echokarriere.no/)
+for managing our events, content and data. It's a student developed project
+written in TypeScript using React, MaterialUI and GraphQL.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Developing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Developing
 
-### `yarn eject`
+To start developing simply run `yarn start` to start the development server.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## `codegen`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Since we're using GraphQL and TypeScript we use [GraphQL Code
+Generator](https://graphql-code-generator.com/) to create types and hooks
+automatically for us for typesafe development. If you need functionality on the
+backend that isn't in `src/generated/types.ts` already run `yarn codegen` and
+it'll regenerate your types and functions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**NB:** This requires that the backend is running locally when running the command.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## `test`
 
-## Learn More
+To test our code run `yarn test`. You should also ensure that the code you've
+written is up to spec with `yarn lint:ts` and `yarn lint:style`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## React
 
+This project was bootstrapped with [Create React
+App](https://github.com/facebook/create-react-app). You can learn more in the
+[Create React App
+documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# LICENSE
+
+MIT.

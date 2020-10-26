@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Footer } from "./Footer";
 import SignIn from "./Login";
 import { useStyles } from "./styles";
+import Dashboard from "./views/dashboard/Dashboard";
 
 const Main: React.FC = () => {
   return (
@@ -22,18 +23,24 @@ function App() {
   return (
     <Router>
       <div className={classes.root}>
-        <Container component="main" className={classes.main} maxWidth="sm">
-          <Switch>
-            <Route path="/login">
+        <Switch>
+          <Route path="/login">
+            <Container component="main" className={classes.main} maxWidth="sm">
               <SignIn />
-            </Route>
-            <Route exact path="/">
+            </Container>
+          </Route>
+          <Route exact path="/">
+            <Container component="main" className={classes.main} maxWidth="sm">
               <Main />
-            </Route>
-          </Switch>
-        </Container>
+            </Container>
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+        </Switch>
         <Footer />
       </div>
+      <div className={classes.dashboard}></div>
     </Router>
   );
 }

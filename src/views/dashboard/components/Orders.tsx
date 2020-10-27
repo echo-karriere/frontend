@@ -9,8 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
 
 // Generate Order Data
-// @ts-ignore
-function createData(id, date, name, shipTo, paymentMethod, amount) {
+function createData(id: number, date: string, name: string, shipTo: string, paymentMethod: string, amount: number) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
 

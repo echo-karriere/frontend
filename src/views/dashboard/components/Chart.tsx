@@ -4,8 +4,7 @@ import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from "recha
 import Title from "./Title";
 
 // Generate Sales Data
-// @ts-ignore
-function createData(time, amount) {
+function createData(time: string, amount: number) {
   return { time, amount };
 }
 

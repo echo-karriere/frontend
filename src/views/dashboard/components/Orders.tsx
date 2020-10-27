@@ -21,8 +21,7 @@ const rows = [
   createData(4, "15 Mar, 2019", "Bruce Springsteen", "Long Branch, NJ", "VISA ⠀•••• 5919", 212.79),
 ];
 
-// @ts-ignore
-function preventDefault(event) {
+function preventDefault(event: MouseEvent) {
   event.preventDefault();
 }
 

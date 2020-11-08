@@ -34,7 +34,7 @@
     "@graphql-codegen/typescript-operations": "1.17.9",
     "@graphql-codegen/typescript-react-apollo": "2.1.1",
     "@graphql-codegen/typescript-resolvers": "1.17.10",
-    "@sondr3/prettier": "0.2.1",
+    "@sondr3/prettier": "0.2.18",
     "@sondr3/tsconfig": "0.4.1",
     "@testing-library/jest-dom": "5.11.5",
     "@testing-library/react": "11.1.1",

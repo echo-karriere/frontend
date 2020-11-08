@@ -1863,10 +1863,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@sondr3/prettier@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@sondr3/prettier/-/prettier-0.2.1.tgz#ff1b7844cf88860b995a6909d68d6bca8022ba8a"
-  integrity sha512-ffwqrNV/k2m8Iuho9/6BmxtuDaBf5eSx13NtqKwhTx06oS16KkSo8Vi3FBUjWkYAmUG3RBhfXLw3U5hgOk4FRw==
+"@sondr3/prettier@0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@sondr3/prettier/-/prettier-0.2.18.tgz#b6efcbedaca9fa328beedeca66dadc1491caa1bf"
+  integrity sha512-f7YH0mFvwGPR1gXj7B3R1rCXxdY1V41xc0gnu+jV0fddBJmiqEMESU2e9j4weHKFqLsmcx+3AhC66XitrypsAw==
 
 "@sondr3/tsconfig@0.4.1":
   version "0.4.1"

@@ -36,7 +36,7 @@
     "@graphql-codegen/typescript-resolvers": "1.17.10",
     "@sondr3/prettier": "0.2.22",
     "@sondr3/tsconfig": "0.4.22",
-    "@testing-library/jest-dom": "5.11.5",
+    "@testing-library/jest-dom": "5.11.6",
     "@testing-library/react": "11.1.2",
     "@testing-library/user-event": "12.2.2",
     "@types/jest": "26.0.15",

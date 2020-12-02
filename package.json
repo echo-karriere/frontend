@@ -29,11 +29,11 @@
     "recharts": "1.8.5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.19.2",
-    "@graphql-codegen/typescript": "1.17.11",
-    "@graphql-codegen/typescript-operations": "1.17.10",
-    "@graphql-codegen/typescript-react-apollo": "2.1.1",
-    "@graphql-codegen/typescript-resolvers": "1.17.11",
+    "@graphql-codegen/cli": "1.19.4",
+    "@graphql-codegen/typescript": "1.19.0",
+    "@graphql-codegen/typescript-operations": "1.17.12",
+    "@graphql-codegen/typescript-react-apollo": "2.2.1",
+    "@graphql-codegen/typescript-resolvers": "1.18.0",
     "@sondr3/prettier": "0.2.23",
     "@sondr3/tsconfig": "0.4.23",
     "@testing-library/jest-dom": "5.11.6",

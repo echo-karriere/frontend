@@ -2037,10 +2037,10 @@
   resolved "https://registry.yarnpkg.com/@sondr3/prettier/-/prettier-0.2.49.tgz#75b1ebdebbc6951d25c2e44cf323e4e44350b8bb"
   integrity sha512-8T0BAlL5zjDa5jkq3LiViYICbXiPEgPiWPG/fybfmD7SHC3d+iIyfv7PXO5LEvBSRlnuH3x39gBoyA6Juy0INw==
 
-"@sondr3/tsconfig@0.4.45":
-  version "0.4.45"
-  resolved "https://registry.yarnpkg.com/@sondr3/tsconfig/-/tsconfig-0.4.45.tgz#062e4104fd318bbc021a4063bc0ecc46818d327e"
-  integrity sha512-XkivUUURHrHFJDNo3uFM/ZKRs4MNPK2w7zSwmz54ZwXALSr2PRIu3D3p/m6vMqX5P4JsR6a4sSvkGVUusaA3fg==
+"@sondr3/tsconfig@0.4.49":
+  version "0.4.49"
+  resolved "https://registry.yarnpkg.com/@sondr3/tsconfig/-/tsconfig-0.4.49.tgz#9d6ac277c099a720e18943d840fe776acf0f041b"
+  integrity sha512-mZtZc7BWuI0bPL/cl35JbGx/TaJjQaBfSXxsKIa05bwEbIycRnN+qORnb9OhmyhcIy7z9YhEcSrbLXQpM1Xheg==
 
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"

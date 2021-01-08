@@ -117,7 +117,7 @@ export default function UserSettings() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            EchoKarriere Dashboard
+            echo karriere Dashboard
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">

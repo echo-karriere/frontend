@@ -29,7 +29,7 @@
     "recharts": "1.8.5"
   },
   "devDependencies": {
-    "@echo-karriere/clubhouse-lint": "^0.2.1",
+    "@echo-karriere/clubhouse-lint": "0.2.1",
     "@graphql-codegen/cli": "1.20.0",
     "@graphql-codegen/typescript": "1.20.0",
     "@graphql-codegen/typescript-operations": "1.17.13",

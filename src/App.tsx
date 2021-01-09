@@ -1,18 +1,21 @@
 import { Container, Typography } from "@material-ui/core";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Footer } from "./Footer";
 import SignIn from "./Login";
 import { useStyles } from "./styles";
 import Dashboard from "./views/dashboard/Dashboard";
+import { useSelector } from "react-redux";
+import { RootState } from "./rootReducer";
 
-const Main: React.FC = () => {
+const Landing: React.FC = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+  console.log(auth.authenticated);
   return (
     <>
       <Typography variant="h4" component="h1" gutterBottom>
-        Hello, world!
+        <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
       </Typography>
-      <Typography variant="body1">Sticky footer placeholder.</Typography>
     </>
   );
 };
@@ -29,18 +32,18 @@ function App() {
               <SignIn />
             </Container>
           </Route>
-          <Route exact path="/">
-            <Container component="main" className={classes.main} maxWidth="sm">
-              <Main />
-            </Container>
-          </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/">
+            <Container component="main" className={classes.main} maxWidth="sm">
+              <Landing />
+            </Container>
           </Route>
         </Switch>
         <Footer />
       </div>
-      <div className={classes.dashboard}></div>
+      <div className={classes.dashboard} />
     </Router>
   );
 }

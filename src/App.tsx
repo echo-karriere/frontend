@@ -1,4 +1,4 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Footer } from "./Footer";
@@ -8,21 +8,9 @@ import Dashboard from "./views/dashboard/Dashboard";
 import { useSelector } from "react-redux";
 import { RootState } from "./rootReducer";
 
-const Landing: React.FC = () => {
-  const auth = useSelector((state: RootState) => state.auth);
-  console.log(auth.authenticated);
-  return (
-    <>
-      <Typography variant="h4" component="h1" gutterBottom>
-        <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
-      </Typography>
-    </>
-  );
-};
-
 function App() {
   const classes = useStyles();
-
+  const auth = useSelector((state: RootState) => state.auth);
   return (
     <Router>
       <div className={classes.root}>
@@ -36,9 +24,7 @@ function App() {
             <Dashboard />
           </Route>
           <Route path="/">
-            <Container component="main" className={classes.main} maxWidth="sm">
-              <Landing />
-            </Container>
+            <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
           </Route>
         </Switch>
         <Footer />

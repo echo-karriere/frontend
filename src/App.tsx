@@ -23,9 +23,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
-          <Route path="/">
-            <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
-          </Route>
+          <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
         </Switch>
         <Footer />
       </div>

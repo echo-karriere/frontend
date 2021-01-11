@@ -21,6 +21,7 @@ interface ListItemLinkProps {
 function ListItemLink(props: ListItemLinkProps) {
   const { icon, primary, to } = props;
 
+  // TODO: Make links actually work
   const renderLink = React.useMemo(
     () =>
       React.forwardRef<any, Omit<RouterLinkProps, "to">>((itemProps, ref) => (

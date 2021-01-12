@@ -7,10 +7,12 @@ import { useStyles } from "./styles";
 import Dashboard from "./views/dashboard/Dashboard";
 import { useSelector } from "react-redux";
 import { RootState } from "./rootReducer";
+import UserSettings from "./views/settings/UserSettings";
 
 function App() {
   const classes = useStyles();
   const auth = useSelector((state: RootState) => state.auth);
+
   return (
     <Router>
       <div className={classes.root}>
@@ -22,6 +24,9 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/settings">
+            <UserSettings />
           </Route>
           <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
         </Switch>

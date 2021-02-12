@@ -9,7 +9,8 @@
     "eject": "react-scripts eject",
     "codegen": "graphql-codegen --config codegen.yml",
     "lint:ts": "eslint src/**/*.{ts,tsx}",
-    "lint:style": "prettier --check src/**/*.{ts,tsx}"
+    "lint:style": "prettier --check src/**/*.{ts,tsx}",
+    "postinstall": "husky install"
   },
   "proxy": "http://localhost:8080",
   "dependencies": {
@@ -29,7 +30,7 @@
     "recharts": "1.8.5"
   },
   "devDependencies": {
-    "@echo-karriere/clubhouse-lint": "0.2.1",
+    "@echo-karriere/clubhouse-lint": "0.3.0",
     "@graphql-codegen/cli": "1.20.1",
     "@graphql-codegen/typescript": "1.20.2",
     "@graphql-codegen/typescript-operations": "1.17.14",
@@ -69,12 +70,6 @@
     ]
   },
   "prettier": "@sondr3/prettier",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "clubhouse-lint"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",

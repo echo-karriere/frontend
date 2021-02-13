@@ -32,10 +32,10 @@
   "devDependencies": {
     "@echo-karriere/clubhouse-lint": "0.3.0",
     "@graphql-codegen/cli": "1.20.1",
-    "@graphql-codegen/typescript": "1.20.2",
+    "@graphql-codegen/typescript": "1.21.0",
     "@graphql-codegen/typescript-operations": "1.17.14",
     "@graphql-codegen/typescript-react-apollo": "2.2.1",
-    "@graphql-codegen/typescript-resolvers": "1.18.1",
+    "@graphql-codegen/typescript-resolvers": "1.18.2",
     "@sondr3/prettier": "0.5.0",
     "@sondr3/tsconfig": "0.7.0",
     "@testing-library/jest-dom": "5.11.9",

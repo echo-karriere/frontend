@@ -4,11 +4,70 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import { Link as RouterLink, LinkProps as RouterLinkProps } from "react-router-dom";
+import { Route, MemoryRouter } from "react-router";
+import { Divider, List, makeStyles, Paper } from "@material-ui/core";
+
+interface ListItemLinkProps {
+  icon?: React.ReactElement;
+  primary: string;
+  to: string;
+}
+
+function ListItemLink(props: ListItemLinkProps) {
+  const { icon, primary, to } = props;
+
+  // TODO: Make links actually work
+  const renderLink = React.useMemo(
+    () =>
+      React.forwardRef<any, Omit<RouterLinkProps, "to">>((itemProps, ref) => (
+        <RouterLink to={to} ref={ref} {...itemProps} />
+      )),
+    [to],
+  );
+
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
+
+// Additional styling for the sidebar/drawer
+const useStyles = makeStyles({
+  root: {},
+});
+
+export default function ListRouter() {
+  const classes = useStyles();
+
+  return (
+    <MemoryRouter initialEntries={["/dashboard"]} initialIndex={0}>
+      <div className={classes.root}>
+        <Route>
+          <Paper elevation={0}>
+            <List aria-label="Main Pages">
+              <ListItemLink to="/dashboard" primary="Dashboard" icon={<DashboardIcon />} />
+              <ListItemLink to="/settings" primary="Account" icon={<PeopleIcon />} />
+            </List>
+            <Divider />
+            <List aria-label="Editor">
+              <ListItemLink to="#" primary="Business presentation" icon={<AssignmentIcon />} />
+              <ListItemLink to="#" primary="Contact information" icon={<AssignmentIcon />} />
+            </List>
+          </Paper>
+        </Route>
+      </div>
+    </MemoryRouter>
+  );
+}
 
 export const mainListItems = (
   <div>
@@ -20,15 +79,9 @@ export const mainListItems = (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Account" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -47,24 +100,24 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset>Your Pages</ListSubheader>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Business presentation" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Contact information" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Additional information" />
     </ListItem>
   </div>
 );

@@ -1,25 +1,19 @@
-import React from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import clsx from "clsx";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import ListRouter from "./components/listItems";
-import Chart from "./components/Chart";
-import Deposits from "./components/Deposits";
-import Orders from "./components/Orders";
-import { Copyright } from "./../../Copyright";
+import Drawer from "@material-ui/core/Drawer";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import Divider from "@material-ui/core/Divider";
+import ListRouter from "../dashboard/components/listItems";
+import Container from "@material-ui/core/Container";
+import React from "react";
+import SettingsForm from "./components/SettingsForm";
 
 const drawerWidth = 240;
 
@@ -100,12 +94,14 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  profileIcon: {
+    maxWidth: "75px",
+  },
 }));
 
-export default function Dashboard() {
+export default function UserSettings() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
@@ -148,29 +144,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+          <SettingsForm />
         </Container>
       </main>
     </div>

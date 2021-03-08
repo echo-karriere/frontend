@@ -1,9 +1,8 @@
 import { Container, Typography } from "@material-ui/core";
-import React from "react";
 import { Copyright } from "./Copyright";
 import { useStyles } from "./styles";
 
-export const Footer: React.FC = () => {
+export const Footer = (): JSX.Element => {
   const classes = useStyles();
 
   return (

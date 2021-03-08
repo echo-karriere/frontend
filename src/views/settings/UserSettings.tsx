@@ -12,7 +12,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import ListRouter from "../dashboard/components/listItems";
 import Container from "@material-ui/core/Container";
-import React from "react";
+import { useState } from "react";
 import SettingsForm from "./components/SettingsForm";
 
 const drawerWidth = 240;
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserSettings() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
 
   return (
     <div className={classes.root}>

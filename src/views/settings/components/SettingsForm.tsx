@@ -1,5 +1,4 @@
 import { Avatar, Button, Card, CardContent, createStyles, makeStyles, TextField, Theme } from "@material-ui/core";
-import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme: Theme) =>

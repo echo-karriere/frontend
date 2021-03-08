@@ -1,5 +1,4 @@
 import { Container } from "@material-ui/core";
-import React from "react";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Footer } from "./Footer";
 import SignIn from "./Login";

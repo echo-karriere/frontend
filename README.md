@@ -1,6 +1,8 @@
 <h1 align="center">echo karriere frontend</h1>
 
 <p align="center">
+   <a href="https://vercel.com?utm_source=echo-karriere-website&utm_campaign=oss"><img alt="Powered by Vercel" src="https://raw.githubusercontent.com/echo-karriere/web/develop/.github/powered-by-vercel.svg" /></a>
+   <br />
    <a href="https://github.com/echo-karriere/frontend/actions"><img alt="GitHub Actions Status" src="https://github.com/echo-karriere/frontend/workflows/pipeline/badge.svg" /></a>
    <br />
 </p>

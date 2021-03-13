@@ -54,7 +54,7 @@ export default function ListRouter() {
         <Route>
           <Paper elevation={0}>
             <List aria-label="Main Pages">
-              <ListItemLink to="/dashboard" primary="Dashboard" icon={<DashboardIcon />} />
+              <ListItemLink to="/dashboard" primary="Index" icon={<DashboardIcon />} />
               <ListItemLink to="/settings" primary="Account" icon={<PeopleIcon />} />
             </List>
             <Divider />
@@ -75,7 +75,7 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Index" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

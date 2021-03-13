@@ -7,6 +7,7 @@ import Dashboard from "./views/dashboard/Dashboard";
 import { useSelector } from "react-redux";
 import { RootState } from "./rootReducer";
 import UserSettings from "./views/settings/UserSettings";
+import AddCompanyForm from "./components/AddCompanyForm";
 
 function App() {
   const classes = useStyles();
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/addCompany">
+            <AddCompanyForm />
           </Route>
           <Route path="/settings">
             <UserSettings />

@@ -3,10 +3,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import axios from "axios";
+
+/*
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import React from "react";
-import axios from "axios";
+*/
 
 type FormData = {
   name: string;
@@ -31,9 +34,15 @@ const postRequest = async (msg: any) => {
     completed: false,
   };
   */
-  console.log(msg);
+  const json = JSON.stringify(msg);
+  console.log(json);
   try {
-    const resp = await axios.post("https://echo-karriere-dev.azurewebsites.net/api/companies", msg);
+    const resp = await axios.post("https://echo-karriere-dev.azurewebsites.net/api/companies", json, {
+      headers: {
+        // Overwrite Axios's automatically set Content-Type
+        "Content-Type": "application/json",
+      },
+    });
     console.log(resp.data);
   } catch (err) {
     console.error(err);
@@ -43,8 +52,10 @@ const postRequest = async (msg: any) => {
 // TODO: Add participation checkbox
 export default function AddCompanyForm() {
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit: SubmitHandler<FormData> = (data) => postRequest(JSON.stringify(data));
+  const onSubmit: SubmitHandler<FormData> = (data) => postRequest(data);
   const classes = useStyles();
+
+  /*
   const [state, setState] = React.useState({
     participation: false,
   });
@@ -54,7 +65,7 @@ export default function AddCompanyForm() {
   };
 
   const { participation } = state;
-
+  */
   return (
     <Container component="main" maxWidth="sm">
       <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -79,12 +90,6 @@ export default function AddCompanyForm() {
           label="Bedriftens hjemmeside"
           id="homepage"
           inputRef={register({ required: "Obligatorisk felt" })}
-        />
-        <FormControlLabel
-          control={<Checkbox checked={participation} onChange={handleChange} name="participation" id="participation" />}
-          label="Bekreftet deltagelse"
-          name="confirmedParticipation"
-          inputRef={register}
         />
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
           Send inn

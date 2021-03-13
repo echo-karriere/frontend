@@ -10,7 +10,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
-import ListRouter from "../dashboard/components/listItems";
+import ListRouter from "../dashboard/DashboardView/components/listItems";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
 import SettingsForm from "./components/SettingsForm";

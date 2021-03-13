@@ -4,6 +4,7 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "strictNullChecks": false,
     "skipLibCheck": true,
     "noEmit": true,
     "jsx": "react-jsx"

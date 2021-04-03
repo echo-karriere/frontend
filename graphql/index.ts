@@ -329,7 +329,7 @@ export type Query = {
   __typename?: "Query";
   allCategories?: Maybe<Array<Maybe<Category>>>;
   categoryById?: Maybe<Category>;
-  allCompanies?: Maybe<Array<Maybe<Company>>>;
+  allCompanies: Array<Company>;
   companyById?: Maybe<Company>;
   _service?: Maybe<_Service>;
 };
@@ -361,7 +361,7 @@ export type _Service = {
 export type AllCompaniesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllCompaniesQuery = { __typename?: "Query" } & {
-  allCompanies?: Maybe<Array<Maybe<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>>>;
+  allCompanies: Array<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -608,7 +608,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryCategoryByIdArgs, "id">
   >;
-  allCompanies?: Resolver<Maybe<Array<Maybe<ResolversTypes["Company"]>>>, ParentType, ContextType>;
+  allCompanies?: Resolver<Array<ResolversTypes["Company"]>, ParentType, ContextType>;
   companyById?: Resolver<
     Maybe<ResolversTypes["Company"]>,
     ParentType,

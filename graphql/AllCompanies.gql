@@ -1,0 +1,7 @@
+query AllCompanies {
+  allCompanies {
+    id
+    name
+    homepage
+  }
+}

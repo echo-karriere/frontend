@@ -1,0 +1,12 @@
+{
+  "name": "echo karriere dev",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://echokarriere-dev.azurewebsites.net/graphql",
+        "introspect": true
+      }
+    }
+  }
+}

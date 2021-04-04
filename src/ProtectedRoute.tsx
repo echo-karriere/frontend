@@ -2,15 +2,15 @@ import React from "react";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Route } from "react-router-dom";
 
-export const ProtectedRoute = ({
-  component,
-  ...args
-}: React.PropsWithChildren<{ [key: string]: never }>): JSX.Element => (
+// NOTE: Code directly from Auth0 guide on authentication, sadly with poor typings :(
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ProtectedRoute = ({ component, ...args }: React.PropsWithChildren<any>): JSX.Element => (
   <Route
-    render={(props) => {
-      const Component = withAuthenticationRequired(component, {});
-      return <Component {...props} />;
-    }}
+    component={withAuthenticationRequired(component, {
+      // eslint-disable-next-line react/display-name
+      onRedirecting: () => <p>Loading...</p>,
+    })}
     {...args}
   />
 );

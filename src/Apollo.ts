@@ -5,12 +5,12 @@ const link = createHttpLink({
   uri: "/graphql",
 });
 
-const authLink = setContext((_, { headers }: { headers: object }) => {
-  let token;
+const authLink = setContext((_, { headers }: { headers: Record<string, string> }) => {
+  const token = "";
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer blah` : "",
     },
   };
 });

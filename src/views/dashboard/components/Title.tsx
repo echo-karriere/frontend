@@ -5,10 +5,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function Title({ children }: Props) {
-  return (
-    <Typography component="h2" variant="h6" color="primary" gutterBottom>
-      {children}
-    </Typography>
-  );
-}
+export const Title = ({ children }: Props): JSX.Element => (
+  <Typography component="h2" variant="h6" color="primary" gutterBottom>
+    {children}
+  </Typography>
+);

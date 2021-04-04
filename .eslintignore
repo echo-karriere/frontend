@@ -1,4 +1,2 @@
 .eslintrc.js
-next-env.d.ts
-graphql/index.ts
-src
+src/graphql/index.ts

@@ -24,7 +24,8 @@ function ListItemLink(props: ListItemLinkProps) {
   // TODO: Make links actually work
   const renderLink = React.useMemo(
     () =>
-      React.forwardRef<any, Omit<RouterLinkProps, "to">>((itemProps, ref) => (
+      // eslint-disable-next-line react/display-name
+      React.forwardRef<null, Omit<RouterLinkProps, "to">>((itemProps, ref) => (
         <RouterLink to={to} ref={ref} {...itemProps} />
       )),
     [to],
@@ -45,7 +46,7 @@ const useStyles = makeStyles({
   root: {},
 });
 
-export default function ListRouter() {
+export const ListRouter = (): JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -67,7 +68,7 @@ export default function ListRouter() {
       </div>
     </MemoryRouter>
   );
-}
+};
 
 export const mainListItems = (
   <div>

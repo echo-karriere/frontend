@@ -15,11 +15,8 @@ import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import ListRouter from "./components/listItems";
-import Chart from "./components/Chart";
-import Deposits from "./components/Deposits";
-import Orders from "./components/Orders";
-import { Copyright } from "./../../Copyright";
+import { Copyright } from "../../Copyright";
+import { Chart, Deposits, ListRouter, Orders } from "./components";
 
 const drawerWidth = 240;
 
@@ -102,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export const Dashboard = (): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -175,4 +172,4 @@ export default function Dashboard() {
       </main>
     </div>
   );
-}
+};

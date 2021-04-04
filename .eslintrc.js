@@ -23,6 +23,7 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
+    "react-app",
   ],
   rules: {
     // Not needed, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/typedef.md#when-not-to-use-it
@@ -47,12 +48,6 @@ module.exports = {
         "import/parsers": {
           "@typescript-eslint/parser": [".ts", ".tsx"],
         },
-      },
-    },
-    {
-      files: ["pages/**/*.tsx", "pages/**/*.ts"],
-      rules: {
-        "import/no-default-export": "off",
       },
     },
   ],

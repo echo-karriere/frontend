@@ -2,7 +2,7 @@ import React from "react";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Title from "./Title";
+import { Title } from ".";
 
 function preventDefault(event: { preventDefault: () => void }) {
   event.preventDefault();
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export const Deposits = (): JSX.Element => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -32,4 +32,4 @@ export default function Deposits() {
       </div>
     </React.Fragment>
   );
-}
+};

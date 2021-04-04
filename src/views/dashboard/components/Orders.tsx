@@ -6,7 +6,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Title from "./Title";
+import { Title } from ".";
 
 // Generate Order Data
 function createData(id: number, date: string, name: string, shipTo: string, paymentMethod: string, amount: number) {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+export const Orders = (): JSX.Element => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -65,4 +65,4 @@ export default function Orders() {
       </div>
     </React.Fragment>
   );
-}
+};

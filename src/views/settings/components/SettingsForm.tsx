@@ -39,7 +39,7 @@ interface IFormInput {
   email: string;
 }
 
-export default function SettingsForm() {
+export const SettingsForm = (): JSX.Element => {
   const classes = useStyles();
   const { control, handleSubmit } = useForm();
 
@@ -60,13 +60,17 @@ export default function SettingsForm() {
             name="name"
             control={control}
             defaultValue=""
-            render={({ onChange, value }) => <TextField label="Navn" onChange={onChange} value={value} />}
+            render={({ onChange, value }: { onChange: () => void; value: string }) => (
+              <TextField label="Navn" onChange={onChange} value={value} />
+            )}
           />
           <Controller
             name="email"
             control={control}
             defaultValue=""
-            render={({ onChange, value }) => <TextField label="Epost" onChange={onChange} value={value} />}
+            render={({ onChange, value }: { onChange: () => void; value: string }) => (
+              <TextField label="Epost" onChange={onChange} value={value} />
+            )}
           />
           <br />
           <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
@@ -76,4 +80,4 @@ export default function SettingsForm() {
       </CardContent>
     </Card>
   );
-}
+};

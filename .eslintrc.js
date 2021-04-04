@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "react-hooks"],
   extends: [
+    "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -23,7 +24,6 @@ module.exports = {
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
-    "react-app",
   ],
   rules: {
     // Not needed, see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/typedef.md#when-not-to-use-it

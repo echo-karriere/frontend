@@ -1,10 +1,13 @@
 import { Container } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import { Footer } from "./Footer";
 import { useStyles } from "./styles";
 import { Dashboard } from "./views/dashboard/Dashboard";
 import { UserSettings } from "./views/settings/UserSettings";
 import { AddCompanyForm } from "./components/AddCompanyForm";
+
+export const history = createBrowserHistory();
 
 export const App = (): JSX.Element => {
   const classes = useStyles();

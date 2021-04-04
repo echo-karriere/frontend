@@ -7,6 +7,4 @@ export const configuration = {
   },
 };
 
-const config = process.env.NODE_ENV === "production" ? configuration.prod : configuration.dev;
-
-export default config;
+export const config = process.env.NODE_ENV === "production" ? configuration.prod : configuration.dev;

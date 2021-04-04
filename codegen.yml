@@ -1,12 +1,13 @@
 overwrite: true
-schema: "http://localhost:8080/graphql"
-documents: "graphql/*.{gql,graphql}"
+schema: "https://echokarriere-dev.azurewebsites.net/graphql"
+documents:
+  - "src/**/*.{gql,graphql}"
+  - "src/**/*.{ts,tsx}"
 generates:
-  ./graphql/index.ts:
+  ./src/graphql/index.ts:
     plugins:
       - typescript
       - typescript-operations
-      - typescript-resolvers
       - typescript-react-apollo
     config:
       withHooks: true

@@ -1,17 +1,13 @@
 import { Container } from "@material-ui/core";
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Footer } from "./Footer";
-import SignIn from "./Login";
 import { useStyles } from "./styles";
-import Dashboard from "./views/dashboard/Dashboard";
-import { useSelector } from "react-redux";
-import { RootState } from "./rootReducer";
-import UserSettings from "./views/settings/UserSettings";
-import AddCompanyForm from "./components/AddCompanyForm";
+import { Dashboard } from "./views/dashboard/Dashboard";
+import { UserSettings } from "./views/settings/UserSettings";
+import { AddCompanyForm } from "./components/AddCompanyForm";
 
-function App() {
+export const App = (): JSX.Element => {
   const classes = useStyles();
-  const auth = useSelector((state: RootState) => state.auth);
 
   return (
     <Router>
@@ -19,7 +15,7 @@ function App() {
         <Switch>
           <Route path="/login">
             <Container component="main" className={classes.main} maxWidth="sm">
-              <SignIn />
+              <p>Login</p>
             </Container>
           </Route>
           <Route path="/dashboard">
@@ -31,13 +27,10 @@ function App() {
           <Route path="/settings">
             <UserSettings />
           </Route>
-          <Redirect from="/" to={auth.authenticated ? "/dashboard" : "/login"} />
         </Switch>
         <Footer />
       </div>
       <div className={classes.dashboard} />
     </Router>
   );
-}
-
-export default App;
+};

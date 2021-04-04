@@ -10,10 +10,10 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
-import ListRouter from "../dashboard/components/listItems";
 import Container from "@material-ui/core/Container";
 import { useState } from "react";
-import SettingsForm from "./components/SettingsForm";
+import { SettingsForm } from "./components/SettingsForm";
+import { ListRouter } from "../dashboard/components";
 
 const drawerWidth = 240;
 
@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function UserSettings() {
+export const UserSettings = (): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -149,4 +149,4 @@ export default function UserSettings() {
       </main>
     </div>
   );
-}
+};

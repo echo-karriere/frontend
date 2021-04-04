@@ -1,9 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import axios from "axios";
 
 /*
 import Checkbox from "@material-ui/core/Checkbox";
@@ -11,10 +10,10 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import React from "react";
 */
 
-type FormData = {
+interface FormData {
   name: string;
   homepage: string;
-};
+}
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -26,34 +25,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const postRequest = async (msg: any) => {
-  /*
-  const newTodo = {
-    userId: 1,
-    title: "Wash my hands",
-    completed: false,
-  };
-  */
-  const json = JSON.stringify(msg);
-  console.log(json);
-  try {
-    const resp = await axios.post("https://echo-karriere-dev.azurewebsites.net/api/companies", json, {
-      headers: {
-        // Overwrite Axios's automatically set Content-Type
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(resp.data);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 // TODO: Add participation checkbox
-export default function AddCompanyForm() {
+export const AddCompanyForm = (): JSX.Element => {
+  // TODO: Fix with react-hook-form 7.0.0
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit: SubmitHandler<FormData> = (data) => postRequest(data);
   const classes = useStyles();
+
+  const onSubmit = (data: FormData) => {
+    const json = JSON.stringify(data);
+    console.log(json);
+    try {
+      console.log("hello");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   /*
   const [state, setState] = React.useState({
@@ -78,7 +65,6 @@ export default function AddCompanyForm() {
           id="name"
           label="Bedriftsnavn"
           name="name"
-          autoFocus
           inputRef={register({ required: "Obligatorisk felt" })}
         />
         <TextField
@@ -97,4 +83,4 @@ export default function AddCompanyForm() {
       </form>
     </Container>
   );
-}
+};

@@ -6,13 +6,14 @@ import { AddCompanyForm } from "./components/AddCompanyForm";
 import { Landing } from "./views/Landing";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { Spinner } from "./components";
 
 export const history = createBrowserHistory();
 
 export const App = (): JSX.Element => {
   const { isAuthenticated, isLoading } = useAuth0();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <Switch>

@@ -5,16 +5,29 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { apolloClient } from "./Apollo";
 import { theme } from "./theme";
-import { App } from "./App";
+import { App, history } from "./App";
+import { AppState, Auth0Provider } from "@auth0/auth0-react";
+
+const onRedirectCallback = (appState: AppState) => {
+  history.replace((appState && appState.returnTo) ?? window.location.pathname);
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </ApolloProvider>
+    <Auth0Provider
+      domain={process.env.REACT_APP_DOMAIN}
+      clientId={process.env.REACT_APP_CLIENT_ID}
+      redirectUri={window.location.origin}
+      audience={process.env.REACT_APP_AUDIENCE}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </ApolloProvider>
+    </Auth0Provider>
   </React.StrictMode>,
   document.getElementById("root"),
 );

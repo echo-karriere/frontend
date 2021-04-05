@@ -4,7 +4,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 import ReactDOM from "react-dom";
 import { apolloClient } from "./Apollo";
-import { theme } from "./utils/theme";
+import { theme } from "./utils";
 import { App, history } from "./App";
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter } from "react-router-dom";

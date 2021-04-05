@@ -12,6 +12,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import { Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -88,6 +89,9 @@ export const UserMenu = (): JSX.Element => {
                     }}
                   >
                     Log out
+                  </MenuItem>
+                  <MenuItem>
+                    <Link to="/settings/tokens">Token</Link>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

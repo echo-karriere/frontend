@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { ProtectedRoute } from "./utils";
 import { Spinner } from "./components";
 import { CompanyOverview, CreateCompany } from "./views/companies/";
+import { Tokens } from "./views/settings/Tokens";
 
 export const history = createBrowserHistory();
 
@@ -26,6 +27,7 @@ export const App = (): JSX.Element => {
         render={({ match: { url } }: { match: { url: string } }) => (
           <>
             <ProtectedRoute path={`${url}/user`} component={UserSettings} />
+            <ProtectedRoute path={`${url}/tokens`} component={Tokens} />
           </>
         )}
       />

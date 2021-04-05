@@ -1,6 +1,6 @@
 import { Container, Typography } from "@material-ui/core";
-import { Copyright } from ".";
-import { useStyles } from "../styles";
+import { Copyright } from "../index";
+import { useStyles } from "../../styles";
 
 export const Footer = (): JSX.Element => {
   const classes = useStyles();

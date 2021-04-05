@@ -1,3 +1,2 @@
-export * from "./Copyright";
-export * from "./Footer";
-export * from "./Spinner";
+export * from "./Generic";
+export * from "./Dashboard";

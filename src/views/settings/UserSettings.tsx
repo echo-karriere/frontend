@@ -1,152 +1,86 @@
-import { makeStyles } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import clsx from "clsx";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import Drawer from "@material-ui/core/Drawer";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import Divider from "@material-ui/core/Divider";
-import Container from "@material-ui/core/Container";
-import { useState } from "react";
-import { SettingsForm } from "./components/SettingsForm";
-import { ListRouter } from "../dashboard/components";
+import { DashboardWrapper } from "../../components";
+import { Avatar, Button, Card, CardContent, createStyles, makeStyles, TextField, Theme } from "@material-ui/core";
+import { Controller, useForm } from "react-hook-form";
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginRight: 36,
-  },
-  menuButtonHidden: {
-    display: "none",
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      "& .MuiTextField-root": {
+        margin: theme.spacing(1),
+        width: "25ch",
+      },
     },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: "100vh",
-    overflow: "auto",
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: "flex",
-    overflow: "auto",
-    flexDirection: "column",
-  },
-  fixedHeight: {
-    height: 240,
-  },
-  profileIcon: {
-    maxWidth: "75px",
-  },
-}));
+    bullet: {
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)",
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+    profileIcon: {
+      maxHeight: 100,
+      maxWidth: 100,
+      minHeight: 50,
+      minWidth: 50,
+      marginBottom: 12,
+    },
+    submitButton: {
+      float: "right",
+      margin: 15,
+    },
+  }),
+);
+
+interface IFormInput {
+  name: string;
+  email: string;
+}
 
 export const UserSettings = (): JSX.Element => {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const { control, handleSubmit } = useForm();
+
+  const onSubmit = (data: IFormInput) => {
+    console.log(data);
+  };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={() => setOpen(!open)}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            echo karriere Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={() => setOpen(!open)}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <ListRouter />
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <SettingsForm />
-        </Container>
-      </main>
-    </div>
+    <DashboardWrapper>
+      <Card className={classes.root}>
+        <CardContent>
+          <Avatar
+            alt="Cat Catterson"
+            src="https://pbs.twimg.com/profile_images/706844157093027840/2Aan_aSU_400x400.jpg"
+            className={classes.profileIcon}
+          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              render={({ onChange, value }: { onChange: () => void; value: string }) => (
+                <TextField label="Navn" onChange={onChange} value={value} />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ onChange, value }: { onChange: () => void; value: string }) => (
+                <TextField label="Epost" onChange={onChange} value={value} />
+              )}
+            />
+            <br />
+            <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
+              Submit
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </DashboardWrapper>
   );
 };

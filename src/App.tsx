@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import { Dashboard } from "./views/dashboard/Dashboard";
+import { Dashboard } from "./views/Dashboard";
 import { UserSettings } from "./views/settings/UserSettings";
 import { AddCompanyForm } from "./components/AddCompanyForm";
 import { Landing } from "./views/Landing";

@@ -16,7 +16,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Copyright } from "../../components";
-import { Chart, Deposits, ListRouter, Orders } from "./components";
+import { Chart, Deposits, ListRouter, Orders, UserMenu } from "./components";
 
 const drawerWidth = 240;
 
@@ -125,6 +125,7 @@ export const Dashboard = (): JSX.Element => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <UserMenu />
         </Toolbar>
       </AppBar>
       <Drawer

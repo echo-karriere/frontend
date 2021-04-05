@@ -5,3 +5,4 @@ export * from "./Information";
 export * from "./listItems";
 export * from "./Orders";
 export * from "./Title";
+export * from "./UserMenu";

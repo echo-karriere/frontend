@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { makeStyles } from "@material-ui/core/styles";
-import { Divider, Drawer, IconButton } from "@material-ui/core";
-import { drawerWidth } from "../";
-import { ListRouter } from ".";
+import { Divider, Drawer, IconButton, List, Paper } from "@material-ui/core";
+import { drawerWidth, LinkListItem } from "../";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import PeopleIcon from "@material-ui/icons/People";
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
@@ -57,7 +58,15 @@ export const Sidebar = ({ open, handleDrawerClose }: SidebarProps): JSX.Element 
         </IconButton>
       </div>
       <Divider />
-      <ListRouter />
+      <div>
+        <Paper elevation={0}>
+          <List aria-label="main mailbox folders">
+            <LinkListItem to="/dashboard" title="Dashboard" icon={<DashboardIcon />} />
+          </List>
+          <Divider />
+          <LinkListItem to="/settings/user" title="Account" icon={<PeopleIcon />} />
+        </Paper>
+      </div>
     </Drawer>
   );
 };

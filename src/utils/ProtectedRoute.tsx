@@ -1,7 +1,7 @@
 import React from "react";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { Route } from "react-router-dom";
-import { Spinner } from "./components";
+import { Spinner } from "../components";
 
 // NOTE: Code directly from Auth0 guide on authentication, sadly with poor typings :(
 

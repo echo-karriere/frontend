@@ -5,7 +5,7 @@ import { UserSettings } from "./views/settings/UserSettings";
 import { AddCompanyForm } from "./components/AddCompanyForm";
 import { Landing } from "./views/Landing";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { ProtectedRoute } from "./utils/ProtectedRoute";
 import { Spinner } from "./components";
 
 export const history = createBrowserHistory();

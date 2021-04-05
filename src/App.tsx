@@ -21,12 +21,22 @@ export const App = (): JSX.Element => {
         {isAuthenticated ? <Redirect to="/dashboard" /> : <Landing />}
       </Route>
       <ProtectedRoute path="/dashboard" component={Dashboard} />
-      <Route path="/addCompany">
-        <AddCompanyForm />
-      </Route>
-      <Route path="/settings">
-        <UserSettings />
-      </Route>
+      <Route
+        path="/settings"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <ProtectedRoute path={`${url}/user`} component={UserSettings} />
+          </>
+        )}
+      />
+      <Route
+        path="/companies"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <ProtectedRoute path={`${url}/create`} component={AddCompanyForm} />
+          </>
+        )}
+      />
     </Switch>
   );
 };

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const JobsOverview = (): JSX.Element => {
   return (
-    <DashboardWrapper>
+    <DashboardWrapper title={"Jobs"}>
       <Link to="/jobs/create">
         <p>Create new job</p>
       </Link>

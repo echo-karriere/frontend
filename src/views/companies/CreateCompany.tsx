@@ -1,5 +1,4 @@
-import { DashboardWrapper } from "../../components";
-import { AddCompanyForm } from "../../components/AddCompanyForm";
+import { DashboardWrapper, AddCompanyForm } from "../../components";
 
 export const CreateCompany = (): JSX.Element => {
   return (

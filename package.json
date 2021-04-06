@@ -24,7 +24,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.57",
     "clipboard-copy": "4.0.1",
-    "@material-ui/pickers": "^3.3.10",
+    "@material-ui/pickers": "3.3.10",
     "clsx": "1.1.1",
     "date-fns": "2.19.0",
     "deepmerge": "4.2.2",

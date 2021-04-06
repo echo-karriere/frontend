@@ -64,18 +64,16 @@ export const AddCompanyForm = (): JSX.Element => {
           fullWidth
           id="name"
           label="Bedriftsnavn"
-          name="name"
-          inputRef={register({ required: "Obligatorisk felt" })}
+          {...register("name", { required: "Obligatorisk felt" })}
         />
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          name="homepage"
           label="Bedriftens hjemmeside"
           id="homepage"
-          inputRef={register({ required: "Obligatorisk felt" })}
+          {...register("homepage", { required: "Obligatorisk felt" })}
         />
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
           Send inn

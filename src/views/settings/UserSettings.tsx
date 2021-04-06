@@ -49,7 +49,7 @@ export const UserSettings = (): JSX.Element => {
   };
 
   return (
-    <DashboardWrapper>
+    <DashboardWrapper title="User Settings">
       <Card className={classes.root}>
         <CardContent>
           <Avatar

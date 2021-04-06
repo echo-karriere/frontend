@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { NavBar } from "./NavBar";
 import { Sidebar } from "./Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,14 +22,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface DashboardWrapperProps {
+  title: string;
   children: NonNullable<ReactNode>;
 }
 
-export const DashboardWrapper = ({ children }: DashboardWrapperProps): JSX.Element => {
+export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
+
+  useEffect(() => {
+    document.title = `${title} | echo karriere`;
+  }, [title]);
 
   return (
     <div className={classes.root}>

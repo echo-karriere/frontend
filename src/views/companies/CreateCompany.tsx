@@ -3,7 +3,7 @@ import { AddCompanyForm } from "../../components/AddCompanyForm";
 
 export const CreateCompany = (): JSX.Element => {
   return (
-    <DashboardWrapper>
+    <DashboardWrapper title="Create company">
       <AddCompanyForm />
     </DashboardWrapper>
   );

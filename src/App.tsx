@@ -8,6 +8,7 @@ import { ProtectedRoute } from "./utils";
 import { Spinner } from "./components";
 import { CompanyOverview, CreateCompany } from "./views/companies/";
 import { Tokens } from "./views/settings/Tokens";
+import { JobsOverview, CreateJob } from "./views/jobs";
 
 export const history = createBrowserHistory();
 
@@ -37,6 +38,15 @@ export const App = (): JSX.Element => {
           <>
             <ProtectedRoute path={`${url}/`} exact component={CompanyOverview} />
             <ProtectedRoute path={`${url}/create`} component={CreateCompany} />
+          </>
+        )}
+      />
+      <Route
+        path="/jobs"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <ProtectedRoute path={`${url}/`} exact component={JobsOverview} />
+            <ProtectedRoute path={`${url}/create`} component={CreateJob} />
           </>
         )}
       />

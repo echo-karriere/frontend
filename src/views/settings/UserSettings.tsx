@@ -62,17 +62,13 @@ export const UserSettings = (): JSX.Element => {
               name="name"
               control={control}
               defaultValue=""
-              render={({ onChange, value }: { onChange: () => void; value: string }) => (
-                <TextField label="Navn" onChange={onChange} value={value} />
-              )}
+              render={({ field }) => <TextField label="Navn" {...field} />}
             />
             <Controller
               name="email"
               control={control}
               defaultValue=""
-              render={({ onChange, value }: { onChange: () => void; value: string }) => (
-                <TextField label="Epost" onChange={onChange} value={value} />
-              )}
+              render={({ field }) => <TextField label="Epost" {...field} />}
             />
             <br />
             <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>

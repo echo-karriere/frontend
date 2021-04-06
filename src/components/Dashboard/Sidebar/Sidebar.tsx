@@ -5,7 +5,7 @@ import { Divider, Drawer, IconButton, List, Paper } from "@material-ui/core";
 import { drawerWidth, LinkListItem } from "../";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
-import { Business } from "@material-ui/icons";
+import { Business, Work } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   toolbarIcon: {
@@ -64,6 +64,7 @@ export const Sidebar = ({ open, handleDrawerClose }: SidebarProps): JSX.Element 
           <List aria-label="main mailbox folders">
             <LinkListItem to="/dashboard" title="Dashboard" icon={<DashboardIcon />} />
             <LinkListItem to="/companies" title="Companies" icon={<Business />} />
+            <LinkListItem to="/jobs" title="Jobs" icon={<Work />} />
           </List>
           <Divider />
           <LinkListItem to="/settings/user" title="Account" icon={<PeopleIcon />} />

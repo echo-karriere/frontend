@@ -8,6 +8,8 @@ import { theme } from "./utils";
 import { App, history } from "./App";
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter } from "react-router-dom";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const onRedirectCallback = (appState: AppState) => {
   history.replace((appState && appState.returnTo) ?? window.location.pathname);
@@ -25,8 +27,10 @@ ReactDOM.render(
       >
         <ApolloProvider client={apolloClient}>
           <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <CssBaseline />
+              <App />
+            </MuiPickersUtilsProvider>
           </ThemeProvider>
         </ApolloProvider>
       </Auth0Provider>

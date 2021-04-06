@@ -1,3 +1,3 @@
 export * from "./config";
-export * from "./ProtectedRoute";
 export * from "./theme";
+export * from "./CustomNavigationClient";

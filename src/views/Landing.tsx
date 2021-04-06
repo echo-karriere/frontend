@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Box, Button, Grid, Link, Paper, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Copyright } from "../components";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useMsal } from "@azure/msal-react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Landing = (): JSX.Element => {
-  const { loginWithRedirect } = useAuth0();
+  const { instance } = useMsal();
   const classes = useStyles();
 
   return (
@@ -57,7 +57,7 @@ export const Landing = (): JSX.Element => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={loginWithRedirect}
+              onClick={() => instance.loginRedirect()}
             >
               Sign in
             </Button>

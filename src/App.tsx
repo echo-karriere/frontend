@@ -1,55 +1,54 @@
-import { Route, Switch, Redirect } from "react-router-dom";
-import { createBrowserHistory } from "history";
-import { Dashboard } from "./views/Dashboard";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { UserSettings } from "./views/settings/UserSettings";
-import { Landing } from "./views/Landing";
-import { useAuth0 } from "@auth0/auth0-react";
-import { ProtectedRoute } from "./utils";
-import { Spinner } from "./components";
+import { CustomNavigationClient } from "./utils";
 import { CompanyOverview, CreateCompany } from "./views/companies/";
 import { Tokens } from "./views/settings/Tokens";
 import { JobsOverview, CreateJob } from "./views/jobs";
+import { MsalProvider } from "@azure/msal-react";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { Main } from "./views/Main";
 
-export const history = createBrowserHistory();
+interface AppProps {
+  pca: PublicClientApplication;
+}
 
-export const App = (): JSX.Element => {
-  const { isAuthenticated, isLoading } = useAuth0();
-
-  if (isLoading) return <Spinner />;
+export const App = ({ pca }: AppProps): JSX.Element => {
+  const history = useHistory();
+  const navigationClient = new CustomNavigationClient(history);
+  pca.setNavigationClient(navigationClient);
 
   return (
-    <Switch>
-      <Route path="/" exact>
-        {isAuthenticated ? <Redirect to="/dashboard" /> : <Landing />}
-      </Route>
-      <ProtectedRoute path="/dashboard" component={Dashboard} />
-      <Route
-        path="/settings"
-        render={({ match: { url } }: { match: { url: string } }) => (
-          <>
-            <ProtectedRoute path={`${url}/user`} component={UserSettings} />
-            <ProtectedRoute path={`${url}/tokens`} component={Tokens} />
-          </>
-        )}
-      />
-      <Route
-        path="/companies"
-        render={({ match: { url } }: { match: { url: string } }) => (
-          <>
-            <ProtectedRoute path={`${url}/`} exact component={CompanyOverview} />
-            <ProtectedRoute path={`${url}/create`} component={CreateCompany} />
-          </>
-        )}
-      />
-      <Route
-        path="/jobs"
-        render={({ match: { url } }: { match: { url: string } }) => (
-          <>
-            <ProtectedRoute path={`${url}/`} exact component={JobsOverview} />
-            <ProtectedRoute path={`${url}/create`} component={CreateJob} />
-          </>
-        )}
-      />
-    </Switch>
+    <MsalProvider instance={pca}>
+      <Switch>
+        <Route path="/" exact component={Main} />
+        <Route
+          path="/settings"
+          render={({ match: { url } }: { match: { url: string } }) => (
+            <>
+              <Route path={`${url}/user`} component={UserSettings} />
+              <Route path={`${url}/tokens`} component={Tokens} />
+            </>
+          )}
+        />
+        <Route
+          path="/companies"
+          render={({ match: { url } }: { match: { url: string } }) => (
+            <>
+              <Route path={`${url}/`} exact component={CompanyOverview} />
+              <Route path={`${url}/create`} component={CreateCompany} />
+            </>
+          )}
+        />
+        <Route
+          path="/jobs"
+          render={({ match: { url } }: { match: { url: string } }) => (
+            <>
+              <Route path={`${url}/`} exact component={JobsOverview} />
+              <Route path={`${url}/create`} component={CreateJob} />
+            </>
+          )}
+        />
+      </Switch>
+    </MsalProvider>
   );
 };

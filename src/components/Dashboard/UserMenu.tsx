@@ -9,10 +9,10 @@ import {
   Paper,
   Popper,
 } from "@material-ui/core";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { useMsal } from "@azure/msal-react";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 export const UserMenu = (): JSX.Element => {
-  const { logout } = useAuth0();
+  const { instance } = useMsal();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
@@ -84,7 +84,7 @@ export const UserMenu = (): JSX.Element => {
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem
                     onClick={(e) => {
-                      logout();
+                      void instance.logoutRedirect();
                       handleClose(e);
                     }}
                   >

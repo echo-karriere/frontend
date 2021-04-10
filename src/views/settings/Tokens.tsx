@@ -4,7 +4,6 @@ import { Button, ButtonGroup, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { CopyToClipboard } from "../../components/Utils";
-import { useAuth } from "../../auth";
 
 const useStyle = makeStyles((theme) => ({
   wrapper: {
@@ -25,14 +24,12 @@ const useStyle = makeStyles((theme) => ({
 export const Tokens = (): JSX.Element => {
   const dashboardClasses = useDashboardStyle();
   const classes = useStyle();
-  const { state } = useAuth();
   const [token, setToken] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const paperWrapped = clsx(dashboardClasses.paper, classes.wrapper);
 
   const getToken = () => {
-    console.log(state);
-    setToken("blah");
+    setToken("what");
     setLoading(false);
   };
 

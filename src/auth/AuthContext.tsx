@@ -1,47 +1,59 @@
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import Keycloak, { KeycloakInstance } from "keycloak-js";
 import { Spinner } from "../components";
 
-interface AuthState {
+interface AuthType {
+  keycloak: KeycloakInstance;
   loading: boolean;
-  authenticated: boolean;
 }
 
-const initialState: AuthState = {
-  loading: false,
-  authenticated: false,
-};
-
-type Action = { type: "Login" } | { type: "Logout" };
-type Dispatch = (action: Action) => void;
-type AuthContextType = { state: AuthState; dispatch: Dispatch };
-
-const authReducer = (state: AuthState, action: Action) => {
-  switch (action.type) {
-    case "Login": {
-      return { ...state, authenticated: true };
-    }
-    case "Logout":
-      return { ...state, authenticated: false };
-  }
-};
-
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthType | undefined>(undefined);
 
 interface AuthProps {
   children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProps): JSX.Element => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [loading, setLoading] = useState(true);
+  const [keycloak, setKeycloak] = useState<KeycloakInstance | undefined>(undefined);
 
-  if (state.loading) return <Spinner />;
+  useEffect(() => {
+    const cloak = Keycloak();
+    void cloak
+      .init({
+        onLoad: "check-sso",
+        silentCheckSsoRedirectUri: window.location.origin + "/silent-check-sso.html",
+        pkceMethod: "S256",
+      })
+      .then(() => {
+        setLoading(false);
+        setKeycloak(cloak);
+      });
+  }, []);
 
-  return <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>;
+  if (keycloak !== undefined) {
+    return <AuthContext.Provider value={{ keycloak, loading }}>{children}</AuthContext.Provider>;
+  }
+
+  return <Spinner />;
 };
 
-export const useAuth = (): AuthContextType => {
+interface UseAuth {
+  login: () => void;
+  loading: boolean;
+  authenticated: boolean | undefined;
+  accessToken: string | undefined;
+  keycloak: KeycloakInstance;
+}
+
+export const useAuth = (): UseAuth => {
   const context = useContext(AuthContext);
   if (context === undefined) throw new Error("useAuth must be used inside a AuthProvider");
+  const { keycloak, loading } = context;
 
-  return context;
+  const login = () => keycloak.login();
+  const authenticated = keycloak.authenticated;
+  const accessToken = keycloak.token;
+
+  return { login, authenticated, accessToken, keycloak, loading };
 };

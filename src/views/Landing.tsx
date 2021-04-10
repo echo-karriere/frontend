@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Box, Button, Grid, Link, Paper, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Copyright } from "../components";
-import { useAuth } from "../auth";
+import { login } from "../auth/Keycloak";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Landing = (): JSX.Element => {
-  const { dispatch } = useAuth();
   const classes = useStyles();
 
   return (
@@ -52,13 +51,7 @@ export const Landing = (): JSX.Element => {
             echo karriere portal
           </Typography>
           <div className={classes.wrapper}>
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => dispatch({ type: "Login" })}
-            >
+            <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={login}>
               Sign in
             </Button>
             <Grid container>

@@ -50,7 +50,7 @@ module.exports = {
       },
     },
     {
-      files: ["pages/**/*.tsx"],
+      files: ["pages/**/*.{ts,tsx}"],
       rules: {
         "import/no-default-export": "off",
       },

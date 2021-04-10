@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { CopyToClipboard } from "../../components/Utils";
-import { useAccount, useMsal } from "@azure/msal-react";
+import { useAuth } from "../../auth";
 
 const useStyle = makeStyles((theme) => ({
   wrapper: {
@@ -25,18 +25,15 @@ const useStyle = makeStyles((theme) => ({
 export const Tokens = (): JSX.Element => {
   const dashboardClasses = useDashboardStyle();
   const classes = useStyle();
-  const { instance, accounts } = useMsal();
-  const account = useAccount(accounts[0] ?? {});
+  const { state } = useAuth();
   const [token, setToken] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const paperWrapped = clsx(dashboardClasses.paper, classes.wrapper);
 
-  const getToken = async () => {
-    if (account) {
-      const accessToken = await instance.acquireTokenSilent({ scopes: [], account: account });
-      setToken(accessToken.accessToken);
-      setLoading(false);
-    }
+  const getToken = () => {
+    console.log(state);
+    setToken("blah");
+    setLoading(false);
   };
 
   const clear = () => {

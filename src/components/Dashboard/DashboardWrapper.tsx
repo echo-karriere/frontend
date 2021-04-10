@@ -3,9 +3,7 @@ import { NavBar } from "./NavBar";
 import { Sidebar } from "./Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container } from "@material-ui/core";
-import { MsalAuthenticationTemplate } from "@azure/msal-react";
-import { InteractionType } from "@azure/msal-browser";
-import { Copyright, Error, Spinner } from "../Generic";
+import { Copyright } from "../Generic";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,24 +37,18 @@ export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JS
   }, [title]);
 
   return (
-    <MsalAuthenticationTemplate
-      interactionType={InteractionType.Redirect}
-      errorComponent={Error}
-      loadingComponent={Spinner}
-    >
-      <div className={classes.root}>
-        <NavBar open={open} handleDrawerOpen={handleDrawerOpen} />
-        <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            {children}
-            <Box pt={4}>
-              <Copyright />
-            </Box>
-          </Container>
-        </main>
-      </div>
-    </MsalAuthenticationTemplate>
+    <div className={classes.root}>
+      <NavBar open={open} handleDrawerOpen={handleDrawerOpen} />
+      <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          {children}
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
+    </div>
   );
 };

@@ -9,22 +9,21 @@ import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { AuthProvider } from "./auth";
+import { initKeycloak } from "./auth/Keycloak";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <ApolloProvider client={apolloClient}>
-          <ThemeProvider theme={theme}>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <CssBaseline />
-              <App />
-            </MuiPickersUtilsProvider>
-          </ThemeProvider>
-        </ApolloProvider>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <CssBaseline />
+            <App />
+          </MuiPickersUtilsProvider>
+        </ThemeProvider>
+      </ApolloProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root"),
+  initKeycloak,
 );

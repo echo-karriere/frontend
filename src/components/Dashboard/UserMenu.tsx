@@ -82,7 +82,7 @@ export const UserMenu = (): JSX.Element => {
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem
                     onClick={(e) => {
-                      // void instance.logoutRedirect();
+                      // void keycloak.logout();
                       handleClose(e);
                     }}
                   >

@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Box, Button, Grid, Link, Paper, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Copyright } from "../components";
-import { login } from "../auth/Keycloak";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +50,13 @@ export const Landing = (): JSX.Element => {
             echo karriere portal
           </Typography>
           <div className={classes.wrapper}>
-            <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={login}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={() => console.log("LOGIN")}
+            >
               Sign in
             </Button>
             <Grid container>

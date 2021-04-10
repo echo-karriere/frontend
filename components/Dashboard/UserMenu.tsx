@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "react-router-dom";
+import { Link } from "../Generic/Link";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -89,7 +89,7 @@ export const UserMenu = (): JSX.Element => {
                     Log out
                   </MenuItem>
                   <MenuItem>
-                    <Link to="/settings/tokens">Token</Link>
+                    <Link href="/settings/tokens">Token</Link>
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>

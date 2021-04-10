@@ -21,7 +21,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export const Tokens = (): JSX.Element => {
+export default function Tokens(): JSX.Element {
   const dashboardClasses = useDashboardStyle();
   const classes = useStyle();
   const [token, setToken] = useState<string>("");
@@ -82,4 +82,4 @@ export const Tokens = (): JSX.Element => {
       </Grid>
     </DashboardWrapper>
   );
-};
+}

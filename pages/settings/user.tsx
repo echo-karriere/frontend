@@ -40,7 +40,7 @@ interface IFormInput {
   email: string;
 }
 
-export const UserSettings = (): JSX.Element => {
+export default function UserSettings(): JSX.Element {
   const classes = useStyles();
   const { control, handleSubmit } = useForm();
 
@@ -79,4 +79,4 @@ export const UserSettings = (): JSX.Element => {
       </Card>
     </DashboardWrapper>
   );
-};
+}

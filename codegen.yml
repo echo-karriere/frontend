@@ -1,8 +1,6 @@
 overwrite: true
-schema: "https://echokarriere-dev.azurewebsites.net/graphql"
-documents:
-  - "src/**/*.{gql,graphql}"
-  - "src/**/*.{ts,tsx}"
+schema: "https://dev.api.echokarriere.no/graphql"
+documents: "graphql/**/*.{gql,graphql}"
 generates:
   ./src/graphql/index.ts:
     plugins:

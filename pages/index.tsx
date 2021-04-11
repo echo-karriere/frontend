@@ -60,7 +60,7 @@ export default function Landing(): JSX.Element {
               onClick={(e) => {
                 e.preventDefault();
                 void signIn("keycloak", {
-                  callbackUrl: "http://localhost:3000/dashboard",
+                  callbackUrl: `${process.env.NEXT_PUBLIC_URL}/dashboard`,
                 });
               }}
             >

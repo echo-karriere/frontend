@@ -11,7 +11,8 @@ import {
 } from "@material-ui/core";
 import { Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link } from "../Generic/Link";
+import { Link } from "components";
+import { signOut } from "next-auth/client";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -82,7 +83,9 @@ export const UserMenu = (): JSX.Element => {
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem
                     onClick={(e) => {
-                      // void keycloak.logout();
+                      void signOut({
+                        callbackUrl: `${process.env.NEXT_PUBLIC_URL}/`,
+                      });
                       handleClose(e);
                     }}
                   >

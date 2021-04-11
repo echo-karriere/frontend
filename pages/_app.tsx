@@ -3,7 +3,7 @@ import Head from "next/head";
 import { ThemeProvider } from "@emotion/react";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { theme } from "../lib";
+import { theme } from "lib";
 import { CssBaseline } from "@material-ui/core";
 import { useEffect } from "react";
 import { Provider } from "next-auth/client";

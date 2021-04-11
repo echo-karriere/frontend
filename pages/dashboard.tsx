@@ -1,4 +1,4 @@
-import { DashboardWrapper } from "../components";
+import { DashboardWrapper } from "components";
 
 export default function Dashboard(): JSX.Element {
   return (

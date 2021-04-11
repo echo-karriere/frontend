@@ -1,9 +1,8 @@
-import { DashboardWrapper, Title, useDashboardStyle } from "../../components";
+import { DashboardWrapper, Title, useDashboardStyle, CopyToClipboard } from "components";
 import { useState } from "react";
 import { Button, ButtonGroup, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
-import { CopyToClipboard } from "../../components/Utils";
 
 const useStyle = makeStyles((theme) => ({
   wrapper: {

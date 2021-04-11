@@ -1,11 +1,9 @@
-import { DashboardWrapper, Link } from "components";
+import { DashboardWrapper, ShowCompanies } from "components";
 
 export default function Index(): JSX.Element {
   return (
     <DashboardWrapper title="Companies">
-      <Link href="/companies/create">
-        <p>Create new company</p>
-      </Link>
+      <ShowCompanies />
     </DashboardWrapper>
   );
 }

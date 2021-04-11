@@ -22,7 +22,8 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "baseUrl": "."
   },
 
   "exclude": ["node_modules"],

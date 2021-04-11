@@ -4,6 +4,7 @@ import { Sidebar } from "./Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container } from "@material-ui/core";
 import { Copyright } from "../Generic";
+import { useSession } from "next-auth/client";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,10 +28,17 @@ interface DashboardWrapperProps {
 }
 
 export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JSX.Element => {
+  const [session] = useSession();
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
+
+  if (!session) {
+    console.error("GOD NO");
+  } else {
+    console.log(session);
+  }
 
   useEffect(() => {
     document.title = `${title} | echo karriere`;

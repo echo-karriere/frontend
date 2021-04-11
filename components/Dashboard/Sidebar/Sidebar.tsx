@@ -62,7 +62,7 @@ export const Sidebar = ({ open, handleDrawerClose }: SidebarProps): JSX.Element 
       <div>
         <Paper elevation={0}>
           <List aria-label="main mailbox folders">
-            <LinkListItem to="/" title="Dashboard" icon={<DashboardIcon />} />
+            <LinkListItem to="/dashboard" title="Dashboard" icon={<DashboardIcon />} />
             <LinkListItem to="/companies" title="Companies" icon={<Business />} />
             <LinkListItem to="/jobs" title="Jobs" icon={<Work />} />
           </List>

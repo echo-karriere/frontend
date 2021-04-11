@@ -1,5 +1,4 @@
-import { DashboardWrapper } from "../../components";
-import { Link } from "../../components/Generic/Link";
+import { DashboardWrapper, Link } from "components";
 
 export default function Index(): JSX.Element {
   return (

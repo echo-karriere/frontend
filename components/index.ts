@@ -3,3 +3,4 @@ export * from "./Dashboard";
 export * from "./AddJobForm";
 export * from "./AddCompanyForm";
 export * from "./ShowCompanies";
+export * from "./Utils";

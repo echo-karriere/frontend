@@ -4,6 +4,7 @@ import { Sidebar } from "./Sidebar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container } from "@material-ui/core";
 import { Copyright } from "../Generic";
+import { withAuthentication } from "../Utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +22,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface DashboardWrapperProps {
+export interface DashboardWrapperProps {
   title: string;
   children: NonNullable<ReactNode>;
 }
 
-export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JSX.Element => {
+const DashboardWrapperImpl = ({ children, title }: DashboardWrapperProps): JSX.Element => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
@@ -52,3 +53,5 @@ export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JS
     </div>
   );
 };
+
+export const DashboardWrapper = withAuthentication(DashboardWrapperImpl);

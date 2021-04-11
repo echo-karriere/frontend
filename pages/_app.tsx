@@ -24,7 +24,9 @@ export default function App({ Component, pageProps }: Props): JSX.Element {
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {
-      void signIn();
+      void signIn("keycloak", {
+        callbackUrl: window.location.href,
+      });
     }
   }, [session]);
 

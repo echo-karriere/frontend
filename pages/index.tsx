@@ -2,7 +2,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Box, Button, Grid, Link as MuiLink, Paper, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Copyright } from "../components";
-import { signIn } from "next-auth/client";
+import { getSession, signIn } from "next-auth/client";
+import { NextPageContext } from "next";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +59,7 @@ export default function Landing(): JSX.Element {
               className={classes.submit}
               onClick={(e) => {
                 e.preventDefault();
-                void signIn("credentials", {
+                void signIn("keycloak", {
                   callbackUrl: "http://localhost:3000/dashboard",
                 });
               }}
@@ -81,3 +82,17 @@ export default function Landing(): JSX.Element {
     </Grid>
   );
 }
+
+Landing.getInitialProps = async ({ req, res }: NextPageContext) => {
+  const session = await getSession({ req });
+
+  if (session && res && session.accessToken) {
+    res.writeHead(302, { Location: "/dashboard" });
+    res.end();
+    return;
+  }
+
+  return {
+    session: undefined,
+  };
+};

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, ButtonGroup, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import { useSession } from "next-auth/client";
 
 const useStyle = makeStyles((theme) => ({
   wrapper: {
@@ -22,13 +23,17 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Tokens(): JSX.Element {
   const dashboardClasses = useDashboardStyle();
+  const [session] = useSession();
   const classes = useStyle();
   const [token, setToken] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const paperWrapped = clsx(dashboardClasses.paper, classes.wrapper);
 
   const getToken = () => {
-    setToken("what");
+    if (!session?.accessToken) {
+      return;
+    }
+    setToken(session?.accessToken);
     setLoading(false);
   };
 

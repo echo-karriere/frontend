@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "codegen": "graphql-codegen --config codegen.yml",
-    "lint:ts": "eslint **/*.{ts,tsx}",
-    "lint:style": "prettier --check graphql components pages lib public",
+    "lint:ts": "eslint --cache components pages lib",
+    "lint:style": "prettier --check graphql components pages lib",
     "postinstall": "husky install"
   },
   "dependencies": {

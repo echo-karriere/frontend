@@ -2,8 +2,7 @@ import { Box, Container, createStyles, IconButton, Theme, Typography } from "@ma
 import { makeStyles } from "@material-ui/core/styles";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
 import { useAllCompaniesQuery } from "../graphql";
-import { Spinner } from "./Generic";
-import { Link } from "react-router-dom";
+import { Spinner, Link } from "./Generic";
 import { AddCircleOutlineOutlined, Refresh } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,7 +48,7 @@ export const ShowCompanies = (): JSX.Element => {
               <Refresh />
             </IconButton>
           </label>
-          <IconButton color={"primary"} aria-label={"add new company"} component={Link} to={"/companies/create"}>
+          <IconButton color={"primary"} aria-label={"add new company"} component={Link} href={"/companies/create"}>
             <AddCircleOutlineOutlined />
           </IconButton>
         </Box>

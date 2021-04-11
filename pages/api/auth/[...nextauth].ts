@@ -2,6 +2,38 @@
 import NextAuth, { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { WithAdditionalParams } from "next-auth/_utils";
+import qs from "qs";
+
+async function refreshAccessToken(token: Record<string, string>) {
+  try {
+    const resp = await fetch(`${process.env.KEYCLOAK_BASE_URL}/token`, {
+      body: qs.stringify({
+        grant_type: "refresh_token",
+        client_id: process.env.KEYCLOAK_CLIENT_ID,
+        refresh_token: token.refreshToken,
+      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      method: "POST",
+    });
+
+    const refreshedTokens = (await resp.json()) as Record<string, string>;
+
+    if (!resp.ok) throw refreshedTokens;
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.accessToken,
+      accessTokenExpires: Date.now() + ((refreshedTokens.expires_in as unknown) as number) * 1000,
+      refreshToken: refreshedTokens.refreshToken ?? token.refreshToken,
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
 
 export default NextAuth({
   providers: [
@@ -37,12 +69,23 @@ export default NextAuth({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async jwt(token, user, account, _profile, _isNewUser): Promise<WithAdditionalParams<JWT>> {
       const usr = user as { resource_access: { backend: { roles: Array<string> } } };
-      if (account?.accessToken) {
-        token.accessToken = account.accessToken;
-        token.roles = usr.resource_access.backend.roles;
+      const tok = token as Record<string, string>;
+
+      if (account && user) {
+        return {
+          accessToken: account.accessToken,
+          accessTokenExpires: Date.now() + (account.expires_in as number) * 1000,
+          refreshToken: account.refreshToken,
+          roles: usr.resource_access.backend.roles,
+          user,
+        };
       }
 
-      return token;
+      if (Date.now() < ((tok.accessTokenExpires as unknown) as number)) {
+        return token;
+      }
+
+      return refreshAccessToken(token as Record<string, string>);
     },
     async session(session, token): Promise<WithAdditionalParams<Session>> {
       const tok = token as JWT;

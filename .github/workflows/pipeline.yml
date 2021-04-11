@@ -39,8 +39,5 @@ jobs:
           yarn lint:ts 
           yarn lint:style
 
-      - name: Test
-        run: yarn test
-
       - name: Build
         run: yarn build

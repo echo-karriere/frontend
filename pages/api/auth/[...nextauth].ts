@@ -68,7 +68,6 @@ export default NextAuth({
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async jwt(token, user, account, _profile, _isNewUser): Promise<WithAdditionalParams<JWT>> {
-      const usr = user as { resource_access: { backend: { roles: Array<string> } } };
       const tok = token as Record<string, string>;
 
       if (account && user) {
@@ -76,7 +75,7 @@ export default NextAuth({
           accessToken: account.accessToken,
           accessTokenExpires: Date.now() + (account.expires_in as number) * 1000,
           refreshToken: account.refreshToken,
-          roles: usr.resource_access.backend.roles,
+          roles: user?.resource_access?.backend.roles,
           user,
         };
       }

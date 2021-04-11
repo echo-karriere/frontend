@@ -3,16 +3,18 @@ import Head from "next/head";
 import { ThemeProvider } from "@emotion/react";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import { theme } from "lib";
+import { theme, useApollo } from "lib";
 import { CssBaseline } from "@material-ui/core";
 import { useEffect } from "react";
 import { Provider, signIn, useSession } from "next-auth/client";
+import { ApolloProvider } from "@apollo/client";
 
 interface Props extends AppProps {
   pageProps: Record<string, never>;
 }
 
 export default function App({ Component, pageProps }: Props): JSX.Element {
+  const apolloClient = useApollo(pageProps.initialApolloState);
   const [session] = useSession();
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -40,12 +42,14 @@ export default function App({ Component, pageProps }: Props): JSX.Element {
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </Head>
       <Provider session={pageProps.session}>
-        <ThemeProvider theme={theme}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </MuiPickersUtilsProvider>
-        </ThemeProvider>
+        <ApolloProvider client={apolloClient}>
+          <ThemeProvider theme={theme}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </MuiPickersUtilsProvider>
+          </ThemeProvider>
+        </ApolloProvider>
       </Provider>
     </>
   );

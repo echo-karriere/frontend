@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ["@typescript-eslint", "react-hooks"],
   extends: [
+    "react-app",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -47,12 +48,6 @@ module.exports = {
         "import/parsers": {
           "@typescript-eslint/parser": [".ts", ".tsx"],
         },
-      },
-    },
-    {
-      files: ["pages/**/*.{ts,tsx}"],
-      rules: {
-        "import/no-default-export": "off",
       },
     },
   ],

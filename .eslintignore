@@ -1,3 +1,2 @@
 .eslintrc.js
-next.config.js
-graphql/index.ts
+src/graphql/index.ts

@@ -2,9 +2,13 @@ import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from "@ap
 import { setContext } from "@apollo/client/link/context";
 import { InteractionRequiredAuthError } from "@azure/msal-common";
 import { useAccount, useMsal } from "@azure/msal-react";
-import { App } from "./App";
+import { ReactNode } from "react";
 
-export const ApolloApp = (): JSX.Element => {
+interface ApolloProps {
+  children: ReactNode;
+}
+
+export const ApolloApp = ({ children }: ApolloProps): JSX.Element => {
   const { instance, accounts, inProgress } = useMsal();
   const account = useAccount(accounts[0] ?? {});
 
@@ -50,9 +54,5 @@ export const ApolloApp = (): JSX.Element => {
     connectToDevTools: process.env.NODE_ENV !== "production",
   });
 
-  return (
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
-  );
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
 };

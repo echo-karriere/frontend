@@ -7,8 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
-import { ApolloApp } from "./Apollo";
-import { CustomMsalProvider } from "./Msal";
+import { App } from "./App";
 
 const configuration: Configuration = {
   auth: {
@@ -22,16 +21,14 @@ export const pca = new PublicClientApplication(configuration);
 
 ReactDOM.render(
   <React.StrictMode>
-    <CustomMsalProvider pca={pca}>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <CssBaseline />
-            <ApolloApp />
-          </MuiPickersUtilsProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </CustomMsalProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <CssBaseline />
+          <App pca={pca} />
+        </MuiPickersUtilsProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root"),
 );

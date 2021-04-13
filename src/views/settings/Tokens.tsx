@@ -34,7 +34,7 @@ export const Tokens = (): JSX.Element => {
   const getToken = async () => {
     if (account) {
       const accessToken = await instance.acquireTokenSilent({
-        scopes: ["https://echokarrieredevb2c.onmicrosoft.com/backend/Authorized"],
+        scopes: [`https://${process.env.REACT_APP_AUTHORITY}.onmicrosoft.com/backend/${process.env.REACT_APP_SCOPE}`],
         account: account,
       });
       setToken(accessToken.accessToken);

@@ -1,54 +1,41 @@
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { UserSettings } from "./views/settings/UserSettings";
-import { CustomNavigationClient } from "./utils";
 import { CompanyOverview, CreateCompany } from "./views/companies/";
 import { Tokens } from "./views/settings/Tokens";
 import { JobsOverview, CreateJob } from "./views/jobs";
-import { MsalProvider } from "@azure/msal-react";
-import { PublicClientApplication } from "@azure/msal-browser";
 import { Main } from "./views/Main";
 
-interface AppProps {
-  pca: PublicClientApplication;
-}
-
-export const App = ({ pca }: AppProps): JSX.Element => {
-  const history = useHistory();
-  const navigationClient = new CustomNavigationClient(history);
-  pca.setNavigationClient(navigationClient);
-
+export const App = (): JSX.Element => {
   return (
-    <MsalProvider instance={pca}>
-      <Switch>
-        <Route path="/" exact component={Main} />
-        <Route
-          path="/settings"
-          render={({ match: { url } }: { match: { url: string } }) => (
-            <>
-              <Route path={`${url}/user`} component={UserSettings} />
-              <Route path={`${url}/tokens`} component={Tokens} />
-            </>
-          )}
-        />
-        <Route
-          path="/companies"
-          render={({ match: { url } }: { match: { url: string } }) => (
-            <>
-              <Route path={`${url}/`} exact component={CompanyOverview} />
-              <Route path={`${url}/create`} component={CreateCompany} />
-            </>
-          )}
-        />
-        <Route
-          path="/jobs"
-          render={({ match: { url } }: { match: { url: string } }) => (
-            <>
-              <Route path={`${url}/`} exact component={JobsOverview} />
-              <Route path={`${url}/create`} component={CreateJob} />
-            </>
-          )}
-        />
-      </Switch>
-    </MsalProvider>
+    <Switch>
+      <Route path="/" exact component={Main} />
+      <Route
+        path="/settings"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <Route path={`${url}/user`} component={UserSettings} />
+            <Route path={`${url}/tokens`} component={Tokens} />
+          </>
+        )}
+      />
+      <Route
+        path="/companies"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <Route path={`${url}/`} exact component={CompanyOverview} />
+            <Route path={`${url}/create`} component={CreateCompany} />
+          </>
+        )}
+      />
+      <Route
+        path="/jobs"
+        render={({ match: { url } }: { match: { url: string } }) => (
+          <>
+            <Route path={`${url}/`} exact component={JobsOverview} />
+            <Route path={`${url}/create`} component={CreateJob} />
+          </>
+        )}
+      />
+    </Switch>
   );
 };

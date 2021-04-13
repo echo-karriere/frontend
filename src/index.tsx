@@ -1,15 +1,14 @@
-import { ApolloProvider } from "@apollo/client";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 import ReactDOM from "react-dom";
-import { apolloClient } from "./Apollo";
 import { theme } from "./utils";
-import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { ApolloApp } from "./Apollo";
+import { CustomMsalProvider } from "./Msal";
 
 const configuration: Configuration = {
   auth: {
@@ -19,20 +18,20 @@ const configuration: Configuration = {
   },
 };
 
-const pca = new PublicClientApplication(configuration);
+export const pca = new PublicClientApplication(configuration);
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ApolloProvider client={apolloClient}>
+    <CustomMsalProvider pca={pca}>
+      <BrowserRouter>
         <ThemeProvider theme={theme}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <CssBaseline />
-            <App pca={pca} />
+            <ApolloApp />
           </MuiPickersUtilsProvider>
         </ThemeProvider>
-      </ApolloProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </CustomMsalProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 );

@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Avatar, Box, Button, Grid, Link, Paper, Typography } from "@material-ui/core";
+import { Avatar, Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Copyright } from "../components";
 import { useMsal } from "@azure/msal-react";
@@ -61,13 +61,6 @@ export const Landing = (): JSX.Element => {
             >
               Sign in
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href={"#"} variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
           </div>
           <Box mt={5}>
             <Copyright />

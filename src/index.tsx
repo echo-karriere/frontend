@@ -14,7 +14,7 @@ import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 const configuration: Configuration = {
   auth: {
     clientId: process.env.REACT_APP_CLIENT_ID,
-    authority: `https://${process.env.REACT_APP_AUTHORITY}.b2clogin.com/${process.env.REACT_APP_AUTHORITY}.onmicrosoft.com/B2C_1_signin`,
+    authority: `https://${process.env.REACT_APP_AUTHORITY}.b2clogin.com/${process.env.REACT_APP_AUTHORITY}.onmicrosoft.com/${process.env.REACT_APP_POLICY}`,
     knownAuthorities: [`${process.env.REACT_APP_AUTHORITY}.b2clogin.com`],
   },
 };

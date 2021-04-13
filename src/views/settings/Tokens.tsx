@@ -33,7 +33,10 @@ export const Tokens = (): JSX.Element => {
 
   const getToken = async () => {
     if (account) {
-      const accessToken = await instance.acquireTokenSilent({ scopes: [], account: account });
+      const accessToken = await instance.acquireTokenSilent({
+        scopes: ["https://echokarrieredevb2c.onmicrosoft.com/backend/Authorized"],
+        account: account,
+      });
       setToken(accessToken.accessToken);
       setLoading(false);
     }

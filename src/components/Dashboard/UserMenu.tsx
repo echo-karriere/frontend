@@ -84,7 +84,7 @@ export const UserMenu = (): JSX.Element => {
                 <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   <MenuItem
                     onClick={(e) => {
-                      void instance.logoutRedirect();
+                      void instance.logoutRedirect({ postLogoutRedirectUri: "/" });
                       handleClose(e);
                     }}
                   >

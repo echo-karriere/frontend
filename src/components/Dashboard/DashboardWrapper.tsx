@@ -6,6 +6,8 @@ import { Box, Container } from "@material-ui/core";
 import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import { InteractionType } from "@azure/msal-browser";
 import { Copyright, Error, Spinner } from "../Generic";
+import { useUser } from "../Auth";
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +32,9 @@ interface DashboardWrapperProps {
 
 export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JSX.Element => {
   const classes = useStyles();
+  const {
+    state: { error, loading },
+  } = useUser();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
@@ -37,6 +42,12 @@ export const DashboardWrapper = ({ children, title }: DashboardWrapperProps): JS
   useEffect(() => {
     document.title = `${title} | echo karriere`;
   }, [title]);
+
+  if (error) {
+    console.error(error);
+    <Redirect to="/error" />;
+  }
+  if (loading) return <Spinner />;
 
   return (
     <MsalAuthenticationTemplate

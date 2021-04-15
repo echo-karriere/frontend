@@ -8,6 +8,7 @@ import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { Main } from "./views/Main";
 import { ApolloApp } from "./Apollo";
+import { AuthProvider } from "./components/Auth";
 
 export interface AppProps {
   pca: PublicClientApplication;
@@ -21,36 +22,38 @@ export const App = ({ pca }: AppProps): JSX.Element => {
   return (
     <MsalProvider instance={pca}>
       <ApolloApp>
-        <Switch>
-          <Route path="/" exact component={Main} />
-          <Route
-            path="/settings"
-            render={({ match: { url } }: { match: { url: string } }) => (
-              <>
-                <Route path={`${url}/user`} component={UserSettings} />
-                <Route path={`${url}/tokens`} component={Tokens} />
-              </>
-            )}
-          />
-          <Route
-            path="/companies"
-            render={({ match: { url } }: { match: { url: string } }) => (
-              <>
-                <Route path={`${url}/`} exact component={CompanyOverview} />
-                <Route path={`${url}/create`} component={CreateCompany} />
-              </>
-            )}
-          />
-          <Route
-            path="/jobs"
-            render={({ match: { url } }: { match: { url: string } }) => (
-              <>
-                <Route path={`${url}/`} exact component={JobsOverview} />
-                <Route path={`${url}/create`} component={CreateJob} />
-              </>
-            )}
-          />
-        </Switch>
+        <AuthProvider>
+          <Switch>
+            <Route path="/" exact component={Main} />
+            <Route
+              path="/settings"
+              render={({ match: { url } }: { match: { url: string } }) => (
+                <>
+                  <Route path={`${url}/user`} component={UserSettings} />
+                  <Route path={`${url}/tokens`} component={Tokens} />
+                </>
+              )}
+            />
+            <Route
+              path="/companies"
+              render={({ match: { url } }: { match: { url: string } }) => (
+                <>
+                  <Route path={`${url}/`} exact component={CompanyOverview} />
+                  <Route path={`${url}/create`} component={CreateCompany} />
+                </>
+              )}
+            />
+            <Route
+              path="/jobs"
+              render={({ match: { url } }: { match: { url: string } }) => (
+                <>
+                  <Route path={`${url}/`} exact component={JobsOverview} />
+                  <Route path={`${url}/create`} component={CreateJob} />
+                </>
+              )}
+            />
+          </Switch>
+        </AuthProvider>
       </ApolloApp>
     </MsalProvider>
   );

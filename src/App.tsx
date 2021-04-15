@@ -10,6 +10,7 @@ import { Main } from "./views/Main";
 import { ApolloApp } from "./Apollo";
 import { AuthProvider } from "./components/Auth";
 import { ErrorPage } from "./views/Error";
+import { FourOhFour } from "./views/404";
 
 export interface AppProps {
   pca: PublicClientApplication;
@@ -54,6 +55,7 @@ export const App = ({ pca }: AppProps): JSX.Element => {
               )}
             />
             <Route path="/error" component={ErrorPage} />
+            <Route path="*" component={FourOhFour} />
           </Switch>
         </AuthProvider>
       </ApolloApp>

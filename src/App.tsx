@@ -9,6 +9,7 @@ import { PublicClientApplication } from "@azure/msal-browser";
 import { Main } from "./views/Main";
 import { ApolloApp } from "./Apollo";
 import { AuthProvider } from "./components/Auth";
+import { ErrorPage } from "./views/Error";
 
 export interface AppProps {
   pca: PublicClientApplication;
@@ -52,6 +53,7 @@ export const App = ({ pca }: AppProps): JSX.Element => {
                 </>
               )}
             />
+            <Route path="/error" component={ErrorPage} />
           </Switch>
         </AuthProvider>
       </ApolloApp>

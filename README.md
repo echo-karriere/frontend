@@ -47,7 +47,7 @@ To start developing simply run `yarn start` to start the development server.
 Since we're using GraphQL and TypeScript we use [GraphQL Code
 Generator](https://graphql-code-generator.com/) to create types and hooks
 automatically for us for typesafe development. If you need functionality on the
-backend that isn't in `src/generated/types.ts` already run `yarn codegen` and
+backend that isn't in `src/generated/types.ts` already run `yarn graphql:codegen` and
 it'll regenerate your types and functions.
 
 **NB:** This requires that the backend is running locally when running the command.

@@ -1,8 +1,13 @@
 import { createContext, ReactNode, useContext, useEffect, useReducer } from "react";
-import { useMeQuery, User } from "../../graphql";
+import { useMeQuery } from "../../graphql";
+
+interface AuthUser {
+  id: string;
+  roles: Array<{ name: string }>;
+}
 
 interface AuthState {
-  me: User | null;
+  me: AuthUser | null;
   loading: boolean;
   error: boolean;
 }
@@ -13,7 +18,7 @@ const initialState: AuthState = {
   error: false,
 };
 
-type Action = { type: "loading" } | { type: "error" } | { type: "data"; payload: User };
+type Action = { type: "loading" } | { type: "error" } | { type: "data"; payload: AuthUser };
 type Dispatch = (action: Action) => void;
 type AuthReducer = { state: AuthState; dispatch: Dispatch };
 

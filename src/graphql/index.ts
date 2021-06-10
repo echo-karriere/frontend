@@ -68,15 +68,73 @@ export type CreateCompanyInput = {
   name: Scalars["String"];
 };
 
+export type CreateJobInput = {
+  company: Scalars["String"];
+  deadline?: Maybe<Scalars["DateTime"]>;
+  description: Scalars["String"];
+  finalExpiration?: Maybe<Scalars["DateTime"]>;
+  location: Scalars["String"];
+  title: Scalars["String"];
+  type: Scalars["Float"];
+  url: Scalars["String"];
+};
+
+export type CreateUserInput = {
+  email: Scalars["String"];
+  name: Scalars["String"];
+  roles: Array<Scalars["ID"]>;
+};
+
+/** A job */
+export type Job = {
+  __typename?: "Job";
+  companyId: Scalars["String"];
+  /** When is the deadline for applying? */
+  deadline: Scalars["DateTime"];
+  /** Description of job */
+  description: Scalars["String"];
+  /** When should the job be unlisted? */
+  finalExpiration: Scalars["DateTime"];
+  /** Job ID */
+  id: Scalars["ID"];
+  /** Where is the job? */
+  location: Scalars["String"];
+  /** Title of job */
+  title: Scalars["String"];
+  /** What kind of job it is */
+  type: JobType;
+  /** External URL for job */
+  url: Scalars["String"];
+};
+
+/** What type of job is it? */
+export enum JobType {
+  Full = "FULL",
+  Other = "OTHER",
+  Part = "PART",
+  Summer = "SUMMER",
+}
+
 export type Mutation = {
   __typename?: "Mutation";
+  /** Assign roles from Azure to all users in our system */
+  addRolesToUsers: Scalars["Boolean"];
   createCategory?: Maybe<Category>;
   createCompany?: Maybe<Company>;
+  createJob: Job;
+  createUser?: Maybe<User>;
   deleteCategory: Scalars["Boolean"];
   deleteCompany: Scalars["Boolean"];
+  deleteJob: Scalars["Boolean"];
+  deleteUser: Scalars["Boolean"];
   updateCategory?: Maybe<Category>;
   updateCompany?: Maybe<Company>;
-  updateUsersFromMsal: Scalars["Boolean"];
+  updateJob?: Maybe<Job>;
+  /** Fetch and create or update roles from Azure in our system */
+  updateRolesFromAzure: Scalars["Boolean"];
+  updateUser?: Maybe<User>;
+  /** Fetch and create or update users from Azure in our system */
+  updateUsersFromAzure: Scalars["Boolean"];
 };
 
 export type MutationCreateCategoryArgs = {
@@ -87,11 +145,27 @@ export type MutationCreateCompanyArgs = {
   input: CreateCompanyInput;
 };
 
+export type MutationCreateJobArgs = {
+  input: CreateJobInput;
+};
+
+export type MutationCreateUserArgs = {
+  input: CreateUserInput;
+};
+
 export type MutationDeleteCategoryArgs = {
   id: Scalars["String"];
 };
 
 export type MutationDeleteCompanyArgs = {
+  id: Scalars["String"];
+};
+
+export type MutationDeleteJobArgs = {
+  id: Scalars["String"];
+};
+
+export type MutationDeleteUserArgs = {
   id: Scalars["String"];
 };
 
@@ -105,22 +179,61 @@ export type MutationUpdateCompanyArgs = {
   input: UpdateCompanyInput;
 };
 
+export type MutationUpdateJobArgs = {
+  id: Scalars["String"];
+  input: UpdateJobInput;
+};
+
+export type MutationUpdateUserArgs = {
+  id: Scalars["String"];
+  input: UpdateUserInput;
+};
+
 export type Query = {
   __typename?: "Query";
-  allCategories: Array<Category>;
-  allCompanies: Array<Company>;
   buildInfo: BuildInfo;
-  categoryById?: Maybe<Category>;
-  companyById?: Maybe<Company>;
+  categories: Array<Category>;
+  category?: Maybe<Category>;
+  companies: Array<Company>;
+  company?: Maybe<Company>;
+  job?: Maybe<Job>;
+  jobs: Array<Job>;
   me?: Maybe<User>;
+  role: Role;
+  roles: Array<Role>;
+  user?: Maybe<User>;
+  users: Array<User>;
 };
 
-export type QueryCategoryByIdArgs = {
+export type QueryCategoryArgs = {
   id: Scalars["String"];
 };
 
-export type QueryCompanyByIdArgs = {
+export type QueryCompanyArgs = {
   id: Scalars["String"];
+};
+
+export type QueryJobArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryRoleArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryUserArgs = {
+  id: Scalars["String"];
+};
+
+/** A role assigned to users */
+export type Role = {
+  __typename?: "Role";
+  /** Role description */
+  description: Scalars["String"];
+  /** The role ID */
+  id: Scalars["ID"];
+  /** Name of the role */
+  name: Scalars["String"];
 };
 
 export type UpdateCategoryInput = {
@@ -134,28 +247,56 @@ export type UpdateCompanyInput = {
   name: Scalars["String"];
 };
 
+export type UpdateJobInput = {
+  company: Scalars["String"];
+  deadline?: Maybe<Scalars["DateTime"]>;
+  description: Scalars["String"];
+  finalExpiration?: Maybe<Scalars["DateTime"]>;
+  location: Scalars["String"];
+  title: Scalars["String"];
+  type: Scalars["Float"];
+  url: Scalars["String"];
+};
+
+export type UpdateUserInput = {
+  email?: Maybe<Scalars["String"]>;
+  enabled?: Maybe<Scalars["Boolean"]>;
+  name?: Maybe<Scalars["String"]>;
+  roles?: Maybe<Array<Scalars["ID"]>>;
+};
+
 /** A subset of a user */
 export type User = {
   __typename?: "User";
+  /** User email */
+  email: Scalars["String"];
+  /** Is the account active? */
+  enabled: Scalars["Boolean"];
   /** User ID */
   id: Scalars["ID"];
+  /** Name of the user */
+  name: Scalars["String"];
   /** Users roles */
-  roles: Array<Scalars["String"]>;
+  roles: Array<Role>;
 };
 
 export type AllCompaniesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllCompaniesQuery = { __typename?: "Query" } & {
-  allCompanies: Array<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>;
+  companies: Array<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>;
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MeQuery = { __typename?: "Query" } & { me?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "roles">> };
+export type MeQuery = { __typename?: "Query" } & {
+  me?: Maybe<
+    { __typename?: "User" } & Pick<User, "id"> & { roles: Array<{ __typename?: "Role" } & Pick<Role, "name">> }
+  >;
+};
 
 export const AllCompaniesDocument = gql`
   query AllCompanies {
-    allCompanies {
+    companies {
       id
       name
       homepage
@@ -197,7 +338,9 @@ export const MeDocument = gql`
   query Me {
     me {
       id
-      roles
+      roles {
+        name
+      }
     }
   }
 `;

@@ -54,7 +54,7 @@ export const ShowCompanies = (): JSX.Element => {
           </IconButton>
         </Box>
         <DataGrid
-          rows={data.allCompanies}
+          rows={data.companies}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10, 15, 25]}

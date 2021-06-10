@@ -51,6 +51,7 @@ export type Company = {
   homepage: Scalars["String"];
   /** Company ID */
   id: Scalars["ID"];
+  jobs: Array<Job>;
   /** When was this resource last updated? */
   modifiedAt?: Maybe<Scalars["DateTime"]>;
   /** Name of company */
@@ -75,7 +76,7 @@ export type CreateJobInput = {
   finalExpiration?: Maybe<Scalars["DateTime"]>;
   location: Scalars["String"];
   title: Scalars["String"];
-  type: Scalars["Float"];
+  type: JobType;
   url: Scalars["String"];
 };
 
@@ -88,7 +89,8 @@ export type CreateUserInput = {
 /** A job */
 export type Job = {
   __typename?: "Job";
-  companyId: Scalars["String"];
+  /** Company for job listing */
+  company: Company;
   /** When is the deadline for applying? */
   deadline: Scalars["DateTime"];
   /** Description of job */
@@ -109,10 +111,10 @@ export type Job = {
 
 /** What type of job is it? */
 export enum JobType {
-  Full = "FULL",
-  Other = "OTHER",
-  Part = "PART",
-  Summer = "SUMMER",
+  Full = "Full",
+  Other = "Other",
+  Part = "Part",
+  Summer = "Summer",
 }
 
 export type Mutation = {
@@ -254,7 +256,7 @@ export type UpdateJobInput = {
   finalExpiration?: Maybe<Scalars["DateTime"]>;
   location: Scalars["String"];
   title: Scalars["String"];
-  type: Scalars["Float"];
+  type: JobType;
   url: Scalars["String"];
 };
 
@@ -284,6 +286,14 @@ export type AllCompaniesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllCompaniesQuery = { __typename?: "Query" } & {
   companies: Array<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>;
+};
+
+export type CreateCompanyMutationVariables = Exact<{
+  input: CreateCompanyInput;
+}>;
+
+export type CreateCompanyMutation = { __typename?: "Mutation" } & {
+  createCompany?: Maybe<{ __typename?: "Company" } & Pick<Company, "id">>;
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -334,6 +344,44 @@ export function useAllCompaniesLazyQuery(
 export type AllCompaniesQueryHookResult = ReturnType<typeof useAllCompaniesQuery>;
 export type AllCompaniesLazyQueryHookResult = ReturnType<typeof useAllCompaniesLazyQuery>;
 export type AllCompaniesQueryResult = Apollo.QueryResult<AllCompaniesQuery, AllCompaniesQueryVariables>;
+export const CreateCompanyDocument = gql`
+  mutation CreateCompany($input: CreateCompanyInput!) {
+    createCompany(input: $input) {
+      id
+    }
+  }
+`;
+export type CreateCompanyMutationFn = Apollo.MutationFunction<CreateCompanyMutation, CreateCompanyMutationVariables>;
+
+/**
+ * __useCreateCompanyMutation__
+ *
+ * To run a mutation, you first call `useCreateCompanyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCompanyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCompanyMutation, { data, loading, error }] = useCreateCompanyMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateCompanyMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateCompanyMutation, CreateCompanyMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateCompanyMutation, CreateCompanyMutationVariables>(CreateCompanyDocument, options);
+}
+export type CreateCompanyMutationHookResult = ReturnType<typeof useCreateCompanyMutation>;
+export type CreateCompanyMutationResult = Apollo.MutationResult<CreateCompanyMutation>;
+export type CreateCompanyMutationOptions = Apollo.BaseMutationOptions<
+  CreateCompanyMutation,
+  CreateCompanyMutationVariables
+>;
 export const MeDocument = gql`
   query Me {
     me {

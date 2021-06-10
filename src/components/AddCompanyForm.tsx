@@ -3,12 +3,8 @@ import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-
-/*
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import React from "react";
-*/
+import { useCreateCompanyMutation } from "../graphql";
+import { Redirect } from "react-router";
 
 interface FormData {
   name: string;
@@ -25,58 +21,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// TODO: Add participation checkbox
 export const AddCompanyForm = (): JSX.Element => {
-  // TODO: Fix with react-hook-form 7.0.0
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { register, handleSubmit } = useForm<FormData>();
+  const [mutation, { error, data, loading }] = useCreateCompanyMutation();
   const classes = useStyles();
 
-  const onSubmit = (data: FormData) => {
-    const json = JSON.stringify(data);
-    console.log(json);
-    try {
-      console.log("hello");
-    } catch (err) {
-      console.error(err);
-    }
+  const onSubmit = async (data: FormData) => {
+    await mutation({
+      variables: {
+        input: {
+          homepage: data.homepage,
+          name: data.name,
+        },
+      },
+    });
   };
 
-  /*
-  const [state, setState] = React.useState({
-    participation: false,
-  });
+  if (error) return <p>Oh no :(</p>;
+  if (data) return <Redirect to="/companies" />;
 
-  const handleChange = (event: any) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  const { participation } = state;
-  */
   return (
     <Container component="main" maxWidth="sm">
       <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
-        <h1>Legg til ny bedrift</h1>
+        <h1>Add company</h1>
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
           id="name"
-          label="Bedriftsnavn"
-          {...register("name", { required: "Obligatorisk felt" })}
+          label="Name"
+          {...register("name", { required: true })}
         />
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          label="Bedriftens hjemmeside"
+          label="Homepage"
           id="homepage"
-          {...register("homepage", { required: "Obligatorisk felt" })}
+          {...register("homepage", { required: true })}
         />
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-          Send inn
+          {loading ? "Submitting" : "Create"}
         </Button>
       </form>
     </Container>

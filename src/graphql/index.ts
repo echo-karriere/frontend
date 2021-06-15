@@ -75,6 +75,7 @@ export type CreateJobInput = {
   description: Scalars["String"];
   finalExpiration?: Maybe<Scalars["DateTime"]>;
   location: Scalars["String"];
+  published: Scalars["Boolean"];
   title: Scalars["String"];
   type: JobType;
   url: Scalars["String"];
@@ -92,15 +93,17 @@ export type Job = {
   /** Company for job listing */
   company: Company;
   /** When is the deadline for applying? */
-  deadline: Scalars["DateTime"];
+  deadline?: Maybe<Scalars["DateTime"]>;
   /** Description of job */
   description: Scalars["String"];
   /** When should the job be unlisted? */
-  finalExpiration: Scalars["DateTime"];
+  finalExpiration?: Maybe<Scalars["DateTime"]>;
   /** Job ID */
   id: Scalars["ID"];
   /** Where is the job? */
   location: Scalars["String"];
+  /** Whether the job posting is published */
+  published: Scalars["Boolean"];
   /** Title of job */
   title: Scalars["String"];
   /** What kind of job it is */
@@ -255,6 +258,7 @@ export type UpdateJobInput = {
   description: Scalars["String"];
   finalExpiration?: Maybe<Scalars["DateTime"]>;
   location: Scalars["String"];
+  published: Scalars["Boolean"];
   title: Scalars["String"];
   type: JobType;
   url: Scalars["String"];
@@ -288,12 +292,30 @@ export type AllCompaniesQuery = { __typename?: "Query" } & {
   companies: Array<{ __typename?: "Company" } & Pick<Company, "id" | "name" | "homepage">>;
 };
 
+export type AllJobsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AllJobsQuery = { __typename?: "Query" } & {
+  jobs: Array<
+    { __typename?: "Job" } & Pick<Job, "id" | "title" | "published" | "type" | "deadline"> & {
+        company: { __typename?: "Company" } & Pick<Company, "name">;
+      }
+  >;
+};
+
 export type CreateCompanyMutationVariables = Exact<{
   input: CreateCompanyInput;
 }>;
 
 export type CreateCompanyMutation = { __typename?: "Mutation" } & {
   createCompany?: Maybe<{ __typename?: "Company" } & Pick<Company, "id">>;
+};
+
+export type CreateJobMutationVariables = Exact<{
+  input: CreateJobInput;
+}>;
+
+export type CreateJobMutation = { __typename?: "Mutation" } & {
+  createJob: { __typename?: "Job" } & Pick<Job, "id" | "title">;
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -344,6 +366,47 @@ export function useAllCompaniesLazyQuery(
 export type AllCompaniesQueryHookResult = ReturnType<typeof useAllCompaniesQuery>;
 export type AllCompaniesLazyQueryHookResult = ReturnType<typeof useAllCompaniesLazyQuery>;
 export type AllCompaniesQueryResult = Apollo.QueryResult<AllCompaniesQuery, AllCompaniesQueryVariables>;
+export const AllJobsDocument = gql`
+  query AllJobs {
+    jobs {
+      id
+      title
+      company {
+        name
+      }
+      published
+      type
+      deadline
+    }
+  }
+`;
+
+/**
+ * __useAllJobsQuery__
+ *
+ * To run a query within a React component, call `useAllJobsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllJobsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllJobsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAllJobsQuery(baseOptions?: Apollo.QueryHookOptions<AllJobsQuery, AllJobsQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<AllJobsQuery, AllJobsQueryVariables>(AllJobsDocument, options);
+}
+export function useAllJobsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllJobsQuery, AllJobsQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<AllJobsQuery, AllJobsQueryVariables>(AllJobsDocument, options);
+}
+export type AllJobsQueryHookResult = ReturnType<typeof useAllJobsQuery>;
+export type AllJobsLazyQueryHookResult = ReturnType<typeof useAllJobsLazyQuery>;
+export type AllJobsQueryResult = Apollo.QueryResult<AllJobsQuery, AllJobsQueryVariables>;
 export const CreateCompanyDocument = gql`
   mutation CreateCompany($input: CreateCompanyInput!) {
     createCompany(input: $input) {
@@ -382,6 +445,42 @@ export type CreateCompanyMutationOptions = Apollo.BaseMutationOptions<
   CreateCompanyMutation,
   CreateCompanyMutationVariables
 >;
+export const CreateJobDocument = gql`
+  mutation CreateJob($input: CreateJobInput!) {
+    createJob(input: $input) {
+      id
+      title
+    }
+  }
+`;
+export type CreateJobMutationFn = Apollo.MutationFunction<CreateJobMutation, CreateJobMutationVariables>;
+
+/**
+ * __useCreateJobMutation__
+ *
+ * To run a mutation, you first call `useCreateJobMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateJobMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createJobMutation, { data, loading, error }] = useCreateJobMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateJobMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateJobMutation, CreateJobMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateJobMutation, CreateJobMutationVariables>(CreateJobDocument, options);
+}
+export type CreateJobMutationHookResult = ReturnType<typeof useCreateJobMutation>;
+export type CreateJobMutationResult = Apollo.MutationResult<CreateJobMutation>;
+export type CreateJobMutationOptions = Apollo.BaseMutationOptions<CreateJobMutation, CreateJobMutationVariables>;
 export const MeDocument = gql`
   query Me {
     me {

@@ -1,12 +1,10 @@
 import { DashboardWrapper } from "../../components";
-import { Link } from "react-router-dom";
+import { ShowJobs } from "../../components/Jobs";
 
 export const JobsOverview = (): JSX.Element => {
   return (
     <DashboardWrapper title={"Jobs"}>
-      <Link to="/jobs/create">
-        <p>Create new job</p>
-      </Link>
+      <ShowJobs />
     </DashboardWrapper>
   );
 };

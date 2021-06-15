@@ -1,0 +1,12 @@
+query AllJobs {
+  jobs {
+    id
+    title
+    company {
+      name
+    }
+    published
+    type
+    deadline
+  }
+}

@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@echo-karriere/clubhouse-lint": "0.3.0",
-    "@graphql-cli/codegen": "1.17.26",
+    "@graphql-cli/codegen": "1.17.27",
     "@graphql-cli/coverage": "2.1.0",
     "@graphql-cli/validate": "2.1.0",
     "@graphql-codegen/introspection": "1.18.2",

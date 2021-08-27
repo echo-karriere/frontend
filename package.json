@@ -40,7 +40,7 @@
     "react-hook-form": "7.13.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "recharts": "2.1.0"
+    "recharts": "2.1.2"
   },
   "devDependencies": {
     "@echo-karriere/clubhouse-lint": "0.3.0",
